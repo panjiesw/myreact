@@ -12,7 +12,7 @@ const TsConfigPathsPlugin = atl.TsConfigPathsPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const DotenvPlugin = require('webpack-dotenv-plugin');
+const DotenvPlugin = require('./config/webpack.plugins').DotenvPlugin;
 const CompressionPlugin = require("compression-webpack-plugin");
 
 function createConfig(env) {
@@ -35,7 +35,7 @@ function createConfig(env) {
 				'react-dom',
 				'react-addons-css-transition-group',
 				'react-router',
-				'flexbox-react',
+				// 'flexbox-react',
 				// 'react-toolbox'
 			],
 			// 'vendor.toolbox': [
@@ -43,7 +43,6 @@ function createConfig(env) {
 			// 	'react-toolbox/lib/button',
 			// 	'react-toolbox/lib/checkbox',
 			// 	'react-toolbox/lib/font_icon',
-			// 	'react-toolbox/lib/hoc',
 			// 	'react-toolbox/lib/input',
 			// 	'react-toolbox/lib/overlay',
 			// 	'react-toolbox/lib/progress_bar',
@@ -51,8 +50,10 @@ function createConfig(env) {
 			// 	'react-toolbox/lib/snackbar',
 			// 	'react-toolbox/lib/tooltip',
 			// 	'react-toolbox/lib/utils',
-			// ]
-			app: './src/index'
+			// ],
+			app: [
+				'./src/index'
+			]
 		}
 	} else {
 		config.entry = {
@@ -83,21 +84,25 @@ function createConfig(env) {
 			loader: 'css-loader',
 			query: {
 				modules: true,
+				sourceMap: true,
+				minimize: true,
 				localIdentName: '[name]__[local]___[hash:base64:5]',
-				importLoaders: 1
+				importLoaders: 2
 			}
 		},
 		{ loader: 'postcss-loader', query: { config: 'config' } },
-		'sass-loader'
+		{ loader: 'sass-loader', query: {sourceMap: true} }
 	];
 	const cssRule = {
-		test: /\.(scss|css)$/,
-		use: env.prod ? [{
-			loader: ExtractTextPlugin.extract({
-				fallbackLoader: 'style-loader',
-				loader: commonStyleRules
-			})
-		}] : ['style-loader'].concat(commonStyleRules)
+		test: /\.css$|\.scss$/
+	}
+	if (env.prod) {
+		cssRule.loader = ExtractTextPlugin.extract({
+			fallbackLoader: 'style-loader',
+			loader: commonStyleRules
+		})
+	} else {
+		cssRule.use = ['style-loader'].concat(commonStyleRules);
 	}
 	config.module = {
 		rules: [
@@ -126,14 +131,16 @@ function createConfig(env) {
 		}),
 		new CheckerPlugin(),
 		new TsConfigPathsPlugin(),
-		// new DotenvPlugin()
+		new DotenvPlugin({
+			path: env.fb ? './.env.fb' : './.env'
+		})
 	];
 
 	if (env.prod) {
 		config.plugins.push(
 			new ExtractTextPlugin({ filename: 'assets/css/[name].[hash].css' }),
 			new webpack.optimize.CommonsChunkPlugin({
-				names: ['vendor.react', 'manifest']
+				names: [/*'vendor.toolbox', */'vendor.react', 'manifest']
 			}),
 			new webpack.optimize.UglifyJsPlugin({
 				sourceMap: true
