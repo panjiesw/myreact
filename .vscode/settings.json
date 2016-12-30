@@ -1,6 +1,6 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-	"typescript.tsdk": "./node_modules/typescript/lib",
+	"css.validate": false,
 	"editor.tabSize": 2,
 	"editor.insertSpaces": false,
 	"editor.detectIndentation": false,
@@ -10,6 +10,7 @@
 	],
 	"editor.wrappingColumn": 120,
 	"editor.snippetSuggestions": "top",
+	"eslint.enable": false,
 	"files.trimTrailingWhitespace": true,
 	"files.insertFinalNewline": true,
 	"files.exclude": {
@@ -18,12 +19,13 @@
 		"**/.idea": true,
 		"**/.iml": true
 	},
-	"css.validate": false,
-	"tslint.enable": true,
-	"eslint.enable": false,
-	"xo.enable": false,
-	"stylelint.enable": true,
 	"licenser.author": "Panjie Setiawan Wicaksono",
 	"licenser.projectName": "react-toolbox-link",
-	"licenser.license": "MIT"
+	"licenser.license": "MIT",
+	"stylelint.enable": true,
+	"tslint.enable": true,
+	"tslint.ignoreDefinitionFiles": true,
+	"tslint.exclude": "./dist",
+	"typescript.tsdk": "./node_modules/typescript/lib",
+	"xo.enable": false
 }

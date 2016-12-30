@@ -1,24 +1,36 @@
 {
 	"compilerOptions": {
 		"target": "es5",
-		"module": "es6",
-		"strictNullChecks": true,
+		"module": "commonjs",
+		"lib": [
+			"dom",
+			"es6"
+		],
+		"moduleResolution": "node",
 		"allowUnreachableCode": false,
 		"allowUnusedLabels": false,
+		"allowSyntheticDefaultImports": true,
 		"charset": "utf8",
+		"declaration": true,
+		"experimentalDecorators": true,
+		"importHelpers": true,
 		"jsx": "react",
-		"moduleResolution": "node",
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
+		"noImplicitThis": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"outDir": "dist",
 		"pretty": true,
+		"removeComments": false,
+		"strictNullChecks": true,
+		"outDir": "dist",
 		"baseUrl": "."
 	},
 	"exclude": [
-		"dist",
 		"node_modules"
 	],
-	"compileOnSave": false
+	"compileOnSave": false,
+	"awesomeTypescriptLoaderOptions": {
+		"useCache": true
+	}
 }

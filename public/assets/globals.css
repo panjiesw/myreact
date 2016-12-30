@@ -1,0 +1,35 @@
+/**
+ *Copyright (c) 2016 Panjie Setiawan Wicaksono
+ *
+ *This software is released under the MIT License.
+ *http://opensource.org/licenses/mit-license.php
+ */
+
+body *,
+body {
+	box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+	height: 100%;
+	width: 100%;
+}
+
+html,
+body,
+#app > * {
+	margin: 0;
+	padding: 0;
+}
+
+#app > * {
+	min-height: 100%;
+	min-width: 100%;
+	height: auto;
+}
+
+.hidden {
+	display: none !important;
+}
