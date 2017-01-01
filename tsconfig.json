@@ -9,7 +9,6 @@
 		"moduleResolution": "node",
 		"allowUnreachableCode": false,
 		"allowUnusedLabels": false,
-		"allowSyntheticDefaultImports": true,
 		"charset": "utf8",
 		"declaration": true,
 		"experimentalDecorators": true,

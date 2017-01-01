@@ -24,8 +24,12 @@ function createConfig(env) {
 
 	if (env.prod) {
 		config.devtool = 'cheap-module-source-map';
+		config.performance = {
+			maxEntrypointSize: 400000
+		}
 	} else {
 		config.devtool = 'eval-source-map';
+		config.performance = false;
 	}
 
 	if (env.prod) {
@@ -33,24 +37,26 @@ function createConfig(env) {
 			'vendor.react': [
 				'react',
 				'react-dom',
-				'react-addons-css-transition-group',
 				'react-router',
 				// 'flexbox-react',
 				// 'react-toolbox'
 			],
-			// 'vendor.toolbox': [
+			'vendor.toolbox': [
+				'react-addons-css-transition-group',
 			// 	'react-toolbox/lib/app_bar',
 			// 	'react-toolbox/lib/button',
 			// 	'react-toolbox/lib/checkbox',
 			// 	'react-toolbox/lib/font_icon',
+				'react-toolbox/lib/hoc/ActivableRenderer',
+				'react-toolbox/lib/hoc/Portal',
 			// 	'react-toolbox/lib/input',
-			// 	'react-toolbox/lib/overlay',
+				'react-toolbox/lib/overlay/Overlay',
 			// 	'react-toolbox/lib/progress_bar',
 			// 	'react-toolbox/lib/ripple',
 			// 	'react-toolbox/lib/snackbar',
 			// 	'react-toolbox/lib/tooltip',
 			// 	'react-toolbox/lib/utils',
-			// ],
+			],
 			app: [
 				'./src/index'
 			]
@@ -69,13 +75,14 @@ function createConfig(env) {
 		config.output = {
 			path: path.resolve(__dirname, 'dist'),
 			publicPath: '/',
-			filename: env.prod ? 'assets/js/[name].[chunkhash].js' : 'bundle.js'
+			filename: env.prod ? 'assets/js/[name].[chunkhash].js' : 'bundle.js',
+			chunkFilename: env.prod ? 'assets/js/[name].[chunkhash].js': '[name].bundle.js'
 		}
 	}
 
 	config.resolve = {
 		unsafeCache: false,
-		extensions: ['.js', '.ts', '.tsx', '.json', '.css', '.scss'],
+		extensions: ['.js', '.ts', '.tsx', '.json', '.css'],
 		mainFields: ['browser', 'web', 'browserify', 'main', 'style']
 	}
 
@@ -90,11 +97,10 @@ function createConfig(env) {
 				importLoaders: 2
 			}
 		},
-		{ loader: 'postcss-loader', query: { config: 'config' } },
-		{ loader: 'sass-loader', query: {sourceMap: true} }
+		{ loader: 'postcss-loader', query: { config: 'config' } }
 	];
 	const cssRule = {
-		test: /\.css$|\.scss$/
+		test: /\.css$/
 	}
 	if (env.prod) {
 		cssRule.loader = ExtractTextPlugin.extract({
@@ -106,7 +112,11 @@ function createConfig(env) {
 	}
 	config.module = {
 		rules: [
-			{ test: /\.scss\.d\.ts$/, loader: 'null-loader' },
+			{
+				test: /\.scss\.d\.ts$/,
+				loader: 'null-loader',
+				include: [path.resolve(__dirname, 'src')],
+			},
 			{
 				test: /\.ts(x?)$/,
 				loader: 'awesome-typescript-loader',
@@ -118,7 +128,8 @@ function createConfig(env) {
 			{
 				test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
 				loader: 'file-loader',
-				query: { name: 'assets/[name].[hash].[ext]' }
+				query: { name: 'assets/[name].[hash].[ext]' },
+				include: [path.resolve(__dirname, 'src')]
 			},
 			cssRule
 		]
@@ -140,7 +151,7 @@ function createConfig(env) {
 		config.plugins.push(
 			new ExtractTextPlugin({ filename: 'assets/css/[name].[hash].css' }),
 			new webpack.optimize.CommonsChunkPlugin({
-				names: [/*'vendor.toolbox', */'vendor.react', 'manifest']
+				names: ['vendor.toolbox', 'vendor.react', 'manifest']
 			}),
 			new webpack.optimize.UglifyJsPlugin({
 				sourceMap: true

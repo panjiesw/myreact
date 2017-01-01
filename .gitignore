@@ -9,3 +9,4 @@ jspm_packages
 dist
 .env
 .awcache
+*.css.d.ts

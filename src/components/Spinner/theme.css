@@ -1,0 +1,20 @@
+/**
+ *Copyright (c) 2017 Panjie Setiawan Wicaksono
+ *
+ *This software is released under the MIT License.
+ *http://opensource.org/licenses/mit-license.php
+ */
+
+@import 'react-toolbox/lib/overlay/theme.css';
+
+.wrapper {
+	align-items: center;
+	composes: reset from 'react-toolbox/lib/helpers.css';
+	display: flex;
+	height: 100vh;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	z-index: var(--z-index-higher);
+}
