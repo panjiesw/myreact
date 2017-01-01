@@ -3,6 +3,6 @@
   "rules": {
     "selector-pseudo-class-no-unknown": null,
 		"indentation": "tab",
-		"property-no-unknown": [true, { ignoreProperties: ["compose", "composes"] }]
+		"property-no-unknown": [true, { ignoreProperties: ["compose", "composes", "font-smoothing"] }]
   }
 }

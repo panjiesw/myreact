@@ -6,13 +6,15 @@
 const path = require('path');
 const webpack = require('webpack');
 const atl = require('awesome-typescript-loader');
+const wt = require('./tools/webpack');
 
 const CheckerPlugin = atl.CheckerPlugin;
 const TsConfigPathsPlugin = atl.TsConfigPathsPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const DotenvPlugin = require('./config/webpack.plugins').DotenvPlugin;
+const DotenvPlugin = wt.DotenvPlugin;
+const FaviconsWebpackPlugin = wt.FaviconsWebpackPlugin;
 const CompressionPlugin = require("compression-webpack-plugin");
 
 function createConfig(env) {
@@ -43,21 +45,24 @@ function createConfig(env) {
 			],
 			'vendor.toolbox': [
 				'react-addons-css-transition-group',
-			// 	'react-toolbox/lib/app_bar',
-			// 	'react-toolbox/lib/button',
-			// 	'react-toolbox/lib/checkbox',
-			// 	'react-toolbox/lib/font_icon',
+				// 	'react-toolbox/lib/app_bar',
+				// 	'react-toolbox/lib/button',
+				// 	'react-toolbox/lib/checkbox',
+				// 	'react-toolbox/lib/font_icon',
 				'react-toolbox/lib/hoc/ActivableRenderer',
 				'react-toolbox/lib/hoc/Portal',
-			// 	'react-toolbox/lib/input',
+				// 	'react-toolbox/lib/input',
 				'react-toolbox/lib/overlay/Overlay',
-			// 	'react-toolbox/lib/progress_bar',
-			// 	'react-toolbox/lib/ripple',
-			// 	'react-toolbox/lib/snackbar',
-			// 	'react-toolbox/lib/tooltip',
-			// 	'react-toolbox/lib/utils',
+				// 	'react-toolbox/lib/progress_bar',
+				// 	'react-toolbox/lib/ripple',
+				// 	'react-toolbox/lib/snackbar',
+				// 	'react-toolbox/lib/tooltip',
+				// 	'react-toolbox/lib/utils',
 			],
 			app: [
+				'normalize.css',
+				'./src/assets/globals.css',
+				'./src/assets/spinner.css',
 				'./src/index'
 			]
 		}
@@ -66,6 +71,9 @@ function createConfig(env) {
 			app: [
 				'webpack-dev-server/client?http://localhost:8080',
 				'webpack/hot/only-dev-server',
+				'normalize.css',
+				'./src/assets/globals.css',
+				'./src/assets/spinner.css',
 				'./src/index'
 			]
 		}
@@ -76,7 +84,7 @@ function createConfig(env) {
 			path: path.resolve(__dirname, 'dist'),
 			publicPath: '/',
 			filename: env.prod ? 'assets/js/[name].[chunkhash].js' : 'bundle.js',
-			chunkFilename: env.prod ? 'assets/js/[name].[chunkhash].js': '[name].bundle.js'
+			chunkFilename: env.prod ? 'assets/js/[name].[chunkhash].js' : '[name].bundle.js'
 		}
 	}
 
@@ -94,10 +102,10 @@ function createConfig(env) {
 				sourceMap: true,
 				minimize: true,
 				localIdentName: '[name]__[local]___[hash:base64:5]',
-				importLoaders: 2
+				importLoaders: 1
 			}
 		},
-		{ loader: 'postcss-loader', query: { config: 'config' } }
+		{ loader: 'postcss-loader', query: { config: 'tools' } }
 	];
 	const cssRule = {
 		test: /\.css$/
@@ -126,7 +134,7 @@ function createConfig(env) {
 				]
 			},
 			{
-				test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+				test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|svg|ico)$/,
 				loader: 'file-loader',
 				query: { name: 'assets/[name].[hash].[ext]' },
 				include: [path.resolve(__dirname, 'src')]
@@ -157,13 +165,24 @@ function createConfig(env) {
 				sourceMap: true
 			}),
 			new HtmlWebpackPlugin({
-				template: path.join(__dirname, 'public', 'index.tpl.html'),
+				template: path.join(__dirname, 'src', 'assets', 'index.tpl.html'),
 				inject: 'body'
 			}),
-			new CopyWebpackPlugin([{
-				from: path.join(__dirname, 'public', 'assets'),
-				to: 'assets'
-			}])
+			new FaviconsWebpackPlugin({
+				logo: './src/assets/favicon.png',
+				icons: {
+					android: true,
+					appleIcon: false,
+					appleStartup: false,
+					coast: false,
+					favicons: true,
+					firefox: false,
+					opengraph: false,
+					twitter: false,
+					yandex: false,
+					windows: true
+				}
+			})
 		)
 		if (!env.fb) {
 			config.plugins.push(new CompressionPlugin({

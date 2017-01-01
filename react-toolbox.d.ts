@@ -1,3 +1,9 @@
+declare module 'react-toolbox/lib/app_bar/AppBar' {
+	import { AppBar } from 'react-toolbox/lib/app_bar';
+	export default AppBar;
+	export { AppBar };
+}
+
 declare module 'react-toolbox/lib/hoc/ActivableRenderer' {
 	import * as React from 'react';
 	import ReactToolbox from 'react-toolbox/lib/index';

@@ -1,10 +1,7 @@
-// Copyright (c) 2016 Panjie Setiawan Wicaksono
+// Copyright (c) 2017 Panjie Setiawan Wicaksono
 //
 // This software is released under the MIT License.
 // http://opensource.org/licenses/mit-license.php
-
-// Temporary webpack-dotenv-plugin source until this is merged:
-// https://github.com/nwinch/webpack-dotenv-plugin/pull/9
 
 const dotenv = require('dotenv-safe');
 const fs = require('fs');
@@ -42,4 +39,4 @@ DotenvPlugin.prototype.apply = function (compiler) {
 	compiler.apply(new DefinePlugin(plugin));
 };
 
-exports.DotenvPlugin = DotenvPlugin;
+module.exports = DotenvPlugin;

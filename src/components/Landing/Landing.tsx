@@ -4,6 +4,9 @@
 // http://opensource.org/licenses/mit-license.php
 
 import * as React from 'react';
+import { AppBar } from 'react-toolbox/lib/app_bar/AppBar';
+import Flexbox from 'flexbox-react';
+import * as theme from './theme.css';
 
 export interface LandingProps {
 	onDidMount(name: string): void;
@@ -20,7 +23,15 @@ const factory: () => React.ComponentClass<LandingProps> = () =>
 		}
 
 		render(): JSX.Element | null {
-			return <h1>{'Hello, World!'}</h1>
+			return (
+				<Flexbox flexWrap='nowrap' flexDirection='column'
+					alignItems='center' justifyContent='center' >
+					<AppBar fixed flat
+						theme={theme}
+						title='My React Playground'>
+					</AppBar>
+				</Flexbox>
+			)
 		}
 	}
 

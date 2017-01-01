@@ -5,31 +5,40 @@
  *http://opensource.org/licenses/mit-license.php
  */
 
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import '../config.css';
+
+body {
+	font-size: 62.5%;
+}
+
 body *,
 body {
 	box-sizing: border-box;
+	font-family: var(--preferred-font);
 }
 
 html,
 body,
-#app {
+:global(.appContainer) {
 	height: 100%;
 	width: 100%;
 }
 
 html,
 body,
-#app > * {
+:global(.appContainer > *) {
 	margin: 0;
 	padding: 0;
 }
 
-#app > * {
+:global(.appContainer > *) {
 	min-height: 100%;
 	min-width: 100%;
 	height: auto;
 }
 
-.hidden {
+:global(.hidden) {
 	display: none !important;
 }

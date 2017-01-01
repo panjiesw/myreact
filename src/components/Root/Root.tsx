@@ -42,8 +42,7 @@ const factory = (controller: IRootController): React.ComponentClass<RootProps> =
 
 		render(): JSX.Element | null {
 			return (
-				<Flexbox flexWrap='nowrap' alignItems='center'
-					justifyContent='center'>
+				<Flexbox flexWrap='nowrap' alignItems='stretch'>
 					{<FullPageSpinner active={this.state.spinnerActive} />}
 					{
 						this.props.children && React.cloneElement((this.props.children as React.ReactElement<any>), {

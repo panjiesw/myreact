@@ -9,7 +9,10 @@
 	"scripts": {
 		"build": "webpack --env.prod --progress --profile",
 		"build:fb": "webpack --env.prod --env.fb --progress --profile",
-		"clean": "del-cli dist .awcache",
+		"clean": "npm run clean:cache && npm run clean:dist",
+		"clean:cache": "del-cli .awcache",
+		"clean:dist": "del-cli dist",
+		"nano": "cssnano dist/assets/globals.css dist/assets/globals.css && cssnano dist/assets/globals.css dist/assets/globals.css",
 		"lint": "npm run lint:ts && npm run lint:css",
 		"lint:css": "stylelint ./src/**/*.css",
 		"lint:ts": "tslint -e './node_modules/**/*' -e './dist/**/*' -e './**/*.d.ts' './**/*.{ts,tsx}'",
@@ -17,7 +20,7 @@
 		"tcm": "tcm -p './src/**/theme.css'",
 		"prebuild": "npm run lint && npm run clean",
 		"prebuild:fb": "npm run lint && npm run clean",
-		"prestart": "npm run lint && npm run clean"
+		"prestart": "npm run lint && npm run clean:cache"
 	},
 	"devDependencies": {
 		"@types/classnames": "^0.0.32",
@@ -35,8 +38,10 @@
 		"del-cli": "^0.2.1",
 		"dotenv-safe": "^3.0.0",
 		"extract-text-webpack-plugin": "beta",
+		"favicons": "^4.8.3",
 		"file-loader": "^0.9.0",
 		"html-webpack-plugin": "^2.24.1",
+		"loader-utils": "^0.2.16",
 		"null-loader": "^0.1.1",
 		"postcss-cssnext": "^2.9.0",
 		"postcss-each": "^0.9.3",
