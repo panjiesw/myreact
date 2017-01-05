@@ -8,6 +8,11 @@ const webpack = require('webpack');
 const atl = require('awesome-typescript-loader');
 const wt = require('./tools/webpack');
 
+const fb = {
+	core: require('./node_modules/firebase/package.json').version,
+	ui: require('./node_modules/firebaseui/package.json').version
+}
+
 const CheckerPlugin = atl.CheckerPlugin;
 const TsConfigPathsPlugin = atl.TsConfigPathsPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -157,6 +162,12 @@ function createConfig(env) {
 		new TsConfigPathsPlugin(),
 		new DotenvPlugin({
 			path: env.fb ? './.env.fb' : './.env'
+		}),
+		new webpack.DefinePlugin({
+			'process.env': {
+				FIREBASE_VERSION: JSON.stringify(fb.core),
+				FIREBASEUI_VERSION: JSON.stringify(fb.ui)
+			}
 		})
 	];
 

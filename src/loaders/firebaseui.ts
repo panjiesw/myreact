@@ -6,7 +6,7 @@
 // import * as firebaseui from 'firebaseui';
 import * as $script from 'scriptjs';
 
-$script(`https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js`, 'firebaseui');
+$script(`https://cdn.firebase.com/libs/firebaseui/${process.env.FIREBASEUI_VERSION}/firebaseui.js`, 'firebaseui');
 
 const loadFirebaseUI = () => new Promise<void>(resolve => {
 	$script.ready('firebase', () => {
