@@ -26,9 +26,8 @@ const factory = (controller: IRootController): React.ComponentClass<RootProps> =
 			this.setState({ spinnerActive: true });
 		}
 
-		onDidMount = (name: string) => {
+		deactivateSpinner = () => {
 			this.setState({ spinnerActive: false });
-			controller.entered(name);
 		}
 
 		constructor(props?: RootProps, context?: any) {
@@ -38,17 +37,14 @@ const factory = (controller: IRootController): React.ComponentClass<RootProps> =
 
 		componentWillMount() {
 			controller.rootHook = this.activateSpinner;
+			controller.mountedHook = this.deactivateSpinner;
 		}
 
 		render(): JSX.Element | null {
 			return (
 				<Flexbox flexWrap='nowrap' alignItems='stretch'>
-					{<FullPageSpinner active={this.state.spinnerActive} />}
-					{
-						this.props.children && React.cloneElement((this.props.children as React.ReactElement<any>), {
-							onDidMount: this.onDidMount
-						})
-					}
+					<FullPageSpinner active={this.state.spinnerActive} />
+					{this.props.children}
 				</Flexbox>
 			)
 		}

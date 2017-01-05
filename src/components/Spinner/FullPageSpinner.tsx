@@ -19,7 +19,15 @@ const factory = (Overlay: React.ComponentClass<OverlayProps>): React.StatelessCo
 		return (
 			<Portal className={theme.wrapper}>
 				<Overlay active={props.active} theme={theme}>
-
+					<div className={theme.spinnerContainer}>
+						<div className={theme.spinner}>
+							<div className='rect1'></div>
+							<div className={theme.rect2}></div>
+							<div className={theme.rect3}></div>
+							<div className={theme.rect4}></div>
+							<div className={theme.rect5}></div>
+						</div>
+					</div>
 				</Overlay>
 			</Portal>
 		)

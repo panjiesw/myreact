@@ -8,10 +8,8 @@ const path = require('path');
 module.exports = {
 	plugins: [
 		require('postcss-import')({
-			root: path.join(__dirname, '../'),
 			path: [
-				path.join(__dirname, '../src'),
-				path.join(__dirname, '../src/node_modules')
+				path.join(__dirname, '../src')
 			]
 		}),
 		require('postcss-mixins')(),

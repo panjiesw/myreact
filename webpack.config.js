@@ -143,6 +143,11 @@ function createConfig(env) {
 		]
 	}
 
+	config.externals = {
+		firebase: 'firebase',
+		firebaseui: 'firebaseui'
+	}
+
 	config.plugins = [
 		new webpack.LoaderOptionsPlugin({
 			debug: true,
@@ -164,6 +169,7 @@ function createConfig(env) {
 			new webpack.optimize.UglifyJsPlugin({
 				sourceMap: true
 			}),
+			new webpack.optimize.AggressiveMergingPlugin(),
 			new HtmlWebpackPlugin({
 				template: path.join(__dirname, 'src', 'assets', 'index.tpl.html'),
 				inject: 'body'
