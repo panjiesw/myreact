@@ -7,11 +7,11 @@ import * as React from 'react';
 import { Link, withRouter } from 'react-router';
 import { AppBar } from 'react-toolbox/lib/app_bar/AppBar';
 import Flexbox from 'flexbox-react';
-import { IRootController } from '../../../components/Root';
+import { IRootStore } from '../../../components/Root';
 import * as theme from './theme.css';
 
 export interface LandingProps {
-	rootController?: IRootController;
+	rootStore?: IRootStore;
 }
 
 const factory: () => React.ComponentClass<LandingProps> = () =>
@@ -21,9 +21,9 @@ const factory: () => React.ComponentClass<LandingProps> = () =>
 		}
 
 		componentDidMount() {
-			const {rootController} = this.props;
-			if (rootController) {
-				rootController.entered('landing');
+			const {rootStore} = this.props;
+			if (rootStore) {
+				rootStore.entered('landing');
 			}
 		}
 

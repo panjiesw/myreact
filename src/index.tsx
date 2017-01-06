@@ -11,15 +11,17 @@ import { Router, PlainRoute, useRouterHistory } from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import { getPolyfill } from './loaders/polyfill';
 import { Root } from './components/Root';
-import landingRoute from './pages/Landing';
-import authRoutes from './pages/Auth';
+import landingRoute from './routes/Landing';
+import authRoutes from './routes/Auth';
+import appRoutes from './routes/App';
 
 const browserHistory = useRouterHistory(createBrowserHistory)({ basename: '/' })
 
 const rootRoute: PlainRoute = {
 	childRoutes: [
 		landingRoute,
-		authRoutes
+		authRoutes,
+		appRoutes
 	]
 }
 

@@ -5,12 +5,12 @@
 
 import * as React from 'react';
 import { Provider } from 'mobx-react';
-import { rootController } from '../../../components/Root';
-import { firebaseController } from '../../../controllers/firebase';
+import { rootStore } from 'components/Root';
+import { authUIStore } from './store';
 import Auth from './Auth';
 
 const AuthWrapper: React.StatelessComponent<{}> = () => (
-	<Provider firebaseController={firebaseController} rootController={rootController}>
+	<Provider authUIStore={authUIStore} rootStore={rootStore}>
 		<Auth />
 	</Provider>
 )

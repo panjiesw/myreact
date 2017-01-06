@@ -7,7 +7,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import Flexbox from 'flexbox-react';
 import { FullPageSpinner } from '../Spinner';
-import { IRootController } from './controller';
+import { IRootStore } from './store';
 
 export interface RootProps extends RouteComponentProps<{}, {}> {
 }
@@ -16,7 +16,7 @@ export interface RootState {
 	spinnerActive: boolean;
 }
 
-const factory = (controller: IRootController): React.ComponentClass<RootProps> =>
+const factory = (store: IRootStore): React.ComponentClass<RootProps> =>
 	class Root extends React.PureComponent<RootProps, RootState> {
 		state: RootState = {
 			spinnerActive: false
@@ -36,8 +36,8 @@ const factory = (controller: IRootController): React.ComponentClass<RootProps> =
 		}
 
 		componentWillMount() {
-			controller.rootHook = this.activateSpinner;
-			controller.mountedHook = this.deactivateSpinner;
+			store.rootHook = this.activateSpinner;
+			store.mountedHook = this.deactivateSpinner;
 		}
 
 		render(): JSX.Element | null {

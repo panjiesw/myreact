@@ -96,7 +96,11 @@ function createConfig(env) {
 	config.resolve = {
 		unsafeCache: false,
 		extensions: ['.js', '.ts', '.tsx', '.json', '.css'],
-		mainFields: ['browser', 'web', 'browserify', 'main', 'style']
+		mainFields: ['browser', 'web', 'browserify', 'main', 'style'],
+		modules: [
+			path.resolve(__dirname, 'src'),
+			'node_modules'
+		]
 	}
 
 	const commonStyleRules = [

@@ -11,6 +11,6 @@ dist
 .awcache
 *.css.d.ts
 src/components/helpers.css
-src/pages/**/helpers.css
+src/routes/**/helpers.css
 .firebaserc
 firebase.json

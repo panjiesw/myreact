@@ -5,14 +5,14 @@
 
 import { EnterHook } from 'react-router';
 
-export interface IRootController {
+export interface IRootStore {
 	rootHook: Function | undefined;
 	mountedHook: Function | undefined;
 	entered(name: string): void;
 	onRouteEnter(next?: Function): EnterHook;
 }
 
-export class RootController implements IRootController {
+export class RootStore implements IRootStore {
 	rootHook: Function | undefined;
 	mountedHook: Function | undefined;
 

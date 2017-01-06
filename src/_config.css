@@ -8,3 +8,10 @@
 @import 'react-toolbox/lib/colors.css';
 @import 'react-toolbox/lib/media.css';
 @import 'react-toolbox/lib/variables.css';
+
+:root {
+	--color-primary: var(--palette-blue-500);
+	--color-primary-dark: var(--palette-blue-700);
+	--color-accent: var(--palette-pink-a200);
+	--color-accent-dark: var(--palette-pink-700);
+}

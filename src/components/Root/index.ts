@@ -4,11 +4,11 @@
 // http://opensource.org/licenses/mit-license.php
 
 import { rootFactory, RootProps } from './Root';
-import { RootController, IRootController } from './controller';
+import { RootStore, IRootStore } from './store';
 
-const rootController = new RootController();
+const rootStore = new RootStore();
 
-const Root = rootFactory(rootController);
+const Root = rootFactory(rootStore);
 Root.displayName = 'Root';
 
-export { Root, RootProps, IRootController, rootController };
+export { Root, RootProps, IRootStore, rootStore };

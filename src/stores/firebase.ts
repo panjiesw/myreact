@@ -19,7 +19,7 @@ export interface FirebaseConfig {
 	messagingSenderId?: string;
 }
 
-export interface IFirebaseController {
+export interface IFirebaseStore {
 	readonly app: firebase.app.App | null;
 	readonly authError: firebase.auth.Error | null;
 	readonly isInitialized: boolean;
@@ -29,7 +29,7 @@ export interface IFirebaseController {
 	initialize(): void;
 }
 
-export class FirebaseController implements IFirebaseController {
+export class FirebaseStore implements IFirebaseStore {
 	@observable user: firebase.User | null = asStructure(null);
 	@observable authError: firebase.auth.Error | null = asStructure(null);
 	@observable isInitialized = false;
@@ -63,10 +63,10 @@ export class FirebaseController implements IFirebaseController {
 	}
 }
 
-const firebaseController = new FirebaseController({
+const firebaseStore = new FirebaseStore({
 	apiKey: process.env.FIREBASE_API_KEY,
 	authDomain: process.env.FIREBAE_AUTH_DOMAIN
 });
-firebaseController.initialize();
+firebaseStore.initialize();
 
-export { firebaseController };
+export { firebaseStore };

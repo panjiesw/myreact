@@ -22,7 +22,13 @@
 		"removeComments": false,
 		"strictNullChecks": true,
 		"outDir": "dist",
-		"baseUrl": "."
+		"baseUrl": ".",
+		"paths": {
+			"*": [
+				"*",
+				"src/*"
+			]
+		}
 	},
 	"exclude": [
 		"node_modules"

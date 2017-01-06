@@ -4,11 +4,11 @@
 // http://opensource.org/licenses/mit-license.php
 
 import { PlainRoute } from 'react-router';
-import { rootController } from '../../components/Root';
+import { rootStore } from '../../components/Root';
 
 const landingRoute: PlainRoute = {
 	path: '/',
-	onEnter: rootController.onRouteEnter(),
+	onEnter: rootStore.onRouteEnter(),
 	getComponent(_, cb) {
 		require.ensure([], () => {
 			cb(null, require<any>('./components/Wrapper').default);

@@ -4,11 +4,11 @@
 // https://opensource.org/licenses/MIT
 
 import * as React from 'react';
-import { rootController } from '../../../components/Root';
+import { rootStore } from '../../../components/Root';
 import Landing from './Landing';
 
 const LandingWrapper: React.StatelessComponent<{}> = () => (
-	<Landing rootController={rootController} />
+	<Landing rootStore={rootStore} />
 )
 LandingWrapper.displayName = 'LandingWrapper';
 

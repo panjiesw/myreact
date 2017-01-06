@@ -4,18 +4,18 @@
 // https://opensource.org/licenses/MIT
 
 import { PlainRoute } from 'react-router';
-import { IAuthController } from '../../controllers/auth';
-import { rootController } from '../../components/Root';
-import { loadFirebase } from '../../loaders/firebase';
-import { loadFirebaseUI } from '../../loaders/firebaseui';
+import { IAuthStore } from 'stores/auth';
+import { rootStore } from 'components/Root';
+import { loadFirebase } from 'loaders/firebase';
+import { loadFirebaseUI } from 'loaders/firebaseui';
 
 const authRoutes: PlainRoute = {
 	path: 'auth',
-	onEnter: rootController.onRouteEnter((nexState, replace, cb) => {
+	onEnter: rootStore.onRouteEnter((nexState, replace, cb) => {
 		require.ensure([], () => {
 			loadFirebase().then(() => {
-				const authController: IAuthController = require<any>('../../controllers/auth').authController;
-				authController.onEnterAuthRoute(nexState, replace, cb);
+				const authStore: IAuthStore = require<any>('stores/auth').authStore;
+				authStore.onEnterAuthRoute(nexState, replace, cb);
 			});
 		}, 'ctrl.auth');
 	}),

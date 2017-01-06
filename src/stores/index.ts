@@ -3,4 +3,4 @@
 // This software is released under the MIT License.
 // http://opensource.org/licenses/mit-license.php
 
-export { firebaseController } from './firebase';
+export { firebaseStore } from './firebase';
