@@ -4,12 +4,8 @@
 // http://opensource.org/licenses/mit-license.php
 
 import * as firebase from 'firebase';
-import {
-	action,
-	asStructure,
-	computed,
-	observable
-} from 'mobx';
+import { fromStream } from 'mobx-utils';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 export interface FirebaseConfig {
 	apiKey: string;
@@ -20,46 +16,22 @@ export interface FirebaseConfig {
 }
 
 export interface IFirebaseStore {
-	readonly app: firebase.app.App | null;
-	readonly authError: firebase.auth.Error | null;
-	readonly isInitialized: boolean;
-	readonly user: firebase.User | null;
-	readonly isLoggedIn: boolean;
-
-	initialize(): void;
+	readonly app: firebase.app.App;
+	readonly loggedInSubject: ReplaySubject<FirebaseUser>;
+	readonly userObservable: MobxRxObservable<FirebaseUser>;
 }
 
 export class FirebaseStore implements IFirebaseStore {
-	@observable user: firebase.User | null = asStructure(null);
-	@observable authError: firebase.auth.Error | null = asStructure(null);
-	@observable isInitialized = false;
+	loggedInSubject: ReplaySubject<FirebaseUser>;
+	userObservable: MobxRxObservable<FirebaseUser>;
 
-	@computed get isLoggedIn(): boolean {
-		return this.user != null;
-	}
+	app: firebase.app.App;
 
-	app: firebase.app.App | null = null;
-
-	initialize = action('Firebase:initializeApp', () => {
-		if (this.app == null) {
-			this.app = firebase.initializeApp(this.config);
-			this.isInitialized = true;
-			this.authObserver = this.app.auth()
-				.onAuthStateChanged(this.onAuthStateChanged, this.onAuthStateError);
-		}
-	})
-
-	private authObserver: any = null;
-
-	private onAuthStateChanged = action('Firebase:authStateChanged', (user: firebase.User | null) => {
-		this.user = user;
-	});
-
-	private onAuthStateError = action('Firebase:authStateError', (error: firebase.auth.Error) => {
-		this.authError = error;
-	})
-
-	constructor(private config: FirebaseConfig) {
+	constructor(config: FirebaseConfig) {
+		this.app = firebase.initializeApp(config);
+		this.loggedInSubject = new ReplaySubject<FirebaseUser>(1);
+		this.userObservable = fromStream<FirebaseUser>(this.loggedInSubject);
+		this.app.auth().onAuthStateChanged(this.loggedInSubject);
 	}
 }
 
@@ -67,6 +39,5 @@ const firebaseStore = new FirebaseStore({
 	apiKey: process.env.FIREBASE_API_KEY,
 	authDomain: process.env.FIREBAE_AUTH_DOMAIN
 });
-firebaseStore.initialize();
 
 export { firebaseStore };

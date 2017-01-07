@@ -15,7 +15,7 @@ const authRoutes: PlainRoute = {
 		require.ensure([], () => {
 			loadFirebase().then(() => {
 				const authStore: IAuthStore = require<any>('stores/auth').authStore;
-				authStore.onEnterAuthRoute(nexState, replace, cb);
+				authStore.shouldEnter(nexState, replace, cb);
 			});
 		}, 'ctrl.auth');
 	}),

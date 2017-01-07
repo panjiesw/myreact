@@ -17,3 +17,10 @@ declare interface Window {
 	Promise?: PromiseConstructor;
 	Symbol?: Symbol;
 }
+
+declare type FirebaseUser = firebase.User | null;
+
+declare interface MobxRxObservable<T> {
+	current: T;
+	dispose(): any;
+}

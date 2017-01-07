@@ -3,41 +3,38 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
+import 'rxjs/add/operator/first';
 import { EnterHook } from 'react-router';
-import { autorunAsync, when } from 'mobx';
+import { computed } from 'mobx';
 import { IFirebaseStore, firebaseStore } from './firebase';
 
 export interface IAuthStore {
-	firebaseStore: IFirebaseStore;
-	onEnterAuthRoute: EnterHook
+	readonly shouldEnter: EnterHook;
+	readonly user: FirebaseUser;
 }
 
 export class AuthStore implements IAuthStore {
-
-	onEnterAuthRoute: EnterHook = (nextState, replace, cb) => {
-		when(
-			'AuthStore:onEnterAuthRoute(init firebase)',
-			() => this.firebaseStore.isInitialized,
-			() => this.enterAuthHook(nextState, replace, cb));
+	@computed get user(): FirebaseUser {
+		return this.firebaseStore.userObservable.current;
 	}
 
-	constructor(public firebaseStore: IFirebaseStore) {
-	}
-
-	private enterAuthHook: EnterHook = (nextState, replace, cb) => {
-		autorunAsync('AuthStore:enterAuthHook', () => {
-			if (nextState.location.pathname === 'auth' && this.firebaseStore.isLoggedIn) {
+	shouldEnter: EnterHook = (nextState, replace, cb) => {
+		this.firebaseStore.loggedInSubject.first().subscribe(user => {
+			if (nextState.location.pathname === 'auth' && user !== null) {
 				replace('app');
 			} else if (nextState.location.pathname !== 'auth' &&
 				nextState.location.pathname !== '/' &&
-				!this.firebaseStore.isLoggedIn) {
+				user === null) {
 				replace('auth');
 			}
 
 			if (cb) {
 				cb();
 			}
-		}, 500);
+		})
+	}
+
+	constructor(private firebaseStore: IFirebaseStore) {
 	}
 }
 

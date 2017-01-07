@@ -5,8 +5,8 @@
 
 import * as React from 'react';
 import { InjectedRouter, RouteComponentProps, withRouter } from 'react-router';
-import { inject, observer } from 'mobx-react';
 import { when } from 'mobx';
+import { inject, observer } from 'mobx-react';
 import { Layout, NavDrawer, Panel } from 'react-toolbox/lib/layout';
 import { AppBar } from 'react-toolbox/lib/app_bar';
 import { Button } from 'react-toolbox/lib/button';
@@ -20,7 +20,7 @@ export interface AppProps extends RouteComponentProps<{}, {}> {
 	router?: InjectedRouter;
 }
 
-const factory: () => React.ComponentClass<AppProps> = () =>
+const factory: () => React.ComponentClass<AppProps> = () => {
 	class App extends React.PureComponent<AppProps, {}> {
 
 		logout = () => {
@@ -46,13 +46,15 @@ const factory: () => React.ComponentClass<AppProps> = () =>
 			super(props, context);
 		}
 
-		componentDidMount() {
+		async componentDidMount() {
 			const { rootStore, firebaseStore } = this.props;
+			if (firebaseStore) {
+				when(
+					'Auth:watching user login state',
+					() => firebaseStore.userObservable.current === null,
+					() => this.goToAuth())
+			}
 
-			when(
-				'Auth:watching user login state',
-				() => firebaseStore != null && !firebaseStore.isLoggedIn,
-				() => this.goToAuth())
 
 			if (rootStore) {
 				rootStore.entered('app');
@@ -91,6 +93,8 @@ const factory: () => React.ComponentClass<AppProps> = () =>
 			)
 		}
 	}
+	return App;
+}
 
 const AppRaw = withRouter(factory());
 AppRaw.displayName = 'AppRaw';

@@ -49,14 +49,10 @@ const factory: () => React.ComponentClass<AuthProps> = () =>
 		}
 
 		componentDidMount() {
+			this.startUI();
 			const { authUIStore, rootStore } = this.props;
 
 			if (authUIStore) {
-				authUIStore.initialize();
-				when(
-					'Auth:waiting firebaseui initialize',
-					() => authUIStore.isInitialized,
-					() => this.startUI())
 				when(
 					'Auth:watching user login state',
 					() => authUIStore.isLoggedIn,
