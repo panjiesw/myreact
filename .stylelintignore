@@ -1,4 +1,4 @@
 node_modules
 dist
 src/components/helpers.css
-src/pages/**/helpers.css
+src/routes/**/helpers.css

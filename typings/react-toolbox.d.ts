@@ -125,19 +125,19 @@ declare module 'react-toolbox/lib/layout' {
 	export class Panel extends React.Component<PanelProps, {}> { }
 
 	export interface SidebarTheme {
-  clipped?: string;
-  pinned?: string;
-}
+		clipped?: string;
+		pinned?: string;
+	}
 
-export interface SidebarProps extends DrawerProps {
-  clipped?: boolean;
-  permanentAt?: "sm" | "smTablet" | "md" | "lg" | "lgTablet" | "xl" | "xxl" | "xxxl";
-  pinned?: boolean;
-  theme?: SidebarTheme;
-  width?: number; // 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 25 | 33 | 50 | 66 | 75 | 100;
-}
+	export interface SidebarProps extends DrawerProps {
+		clipped?: boolean;
+		permanentAt?: "sm" | "smTablet" | "md" | "lg" | "lgTablet" | "xl" | "xxl" | "xxxl";
+		pinned?: boolean;
+		theme?: SidebarTheme;
+		width?: number; // 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 25 | 33 | 50 | 66 | 75 | 100;
+	}
 
-export class Sidebar extends React.Component<SidebarProps, {}> { }
+	export class Sidebar extends React.Component<SidebarProps, {}> { }
 }
 
 declare module 'react-toolbox/lib/overlay/Overlay' {

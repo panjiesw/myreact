@@ -5,8 +5,8 @@
 
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import Flexbox from 'flexbox-react';
-import { FullPageSpinner } from '../Spinner';
+import { Row, Col } from 'components/Flex';
+import { FullPageSpinner } from 'components/Spinner';
 import { IRootStore } from './store';
 
 export interface RootProps extends RouteComponentProps<{}, {}> {
@@ -42,12 +42,14 @@ const factory = (store: IRootStore): React.ComponentClass<RootProps> =>
 
 		render(): JSX.Element | null {
 			return (
-				<Flexbox flexWrap='nowrap' alignItems='stretch'>
+				<Row style={{margin: '0'}}>
 					<FullPageSpinner active={this.state.spinnerActive} />
-					{this.props.children}
-				</Flexbox>
+					<Col xs={12}>
+						{this.props.children}
+					</Col>
+				</Row>
 			)
 		}
 	}
 
-export {factory as rootFactory};
+export { factory as rootFactory };

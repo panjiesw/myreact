@@ -7,7 +7,7 @@ import * as React from 'react';
 import { InjectedRouter, RouteComponentProps, withRouter } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { when } from 'mobx';
-import Flexbox from 'flexbox-react';
+import { Col, Row } from 'components/Flex';
 import { IRootStore } from 'components/Root';
 import { IAuthUIStore } from './store';
 import './theme.css';
@@ -66,11 +66,11 @@ const factory: () => React.ComponentClass<AuthProps> = () =>
 
 		render(): JSX.Element | null {
 			return (
-				<Flexbox width='100%'
-					flexWrap='nowrap' flexDirection='column'
-					alignItems='center' justifyContent='center' >
-					<div id='fuiContainer'></div>
-				</Flexbox>
+				<Row middle='xs' center='xs' style={{height: '100%'}}>
+					<Col xs={6} md={4}>
+						<div id='fuiContainer'></div>
+					</Col>
+				</Row>
 			)
 		}
 	}

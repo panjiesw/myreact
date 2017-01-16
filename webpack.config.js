@@ -7,6 +7,7 @@ const path = require('path');
 const webpack = require('webpack');
 const atl = require('awesome-typescript-loader');
 const wt = require('./tools/webpack');
+const pkg = require('./package.json');
 
 const fb = {
 	core: require('./node_modules/firebase/package.json').version,
@@ -15,12 +16,45 @@ const fb = {
 
 const CheckerPlugin = atl.CheckerPlugin;
 const TsConfigPathsPlugin = atl.TsConfigPathsPlugin;
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DotenvPlugin = wt.DotenvPlugin;
 const FaviconsWebpackPlugin = wt.FaviconsWebpackPlugin;
 const CompressionPlugin = require("compression-webpack-plugin");
+
+function htmlTemplate(filename = 'index.html') {
+	return {
+		filename,
+		title: 'My React Playground',
+		inject: false,
+		template: path.resolve(__dirname, 'tools', 'webpack', 'template.ejs'),
+		appMountClasses: 'appContainer',
+		appMountId: 'app',
+		meta: [
+			{
+				content: 'ie=edge',
+				'http-equiv': 'x-ua-compatible'
+			},
+			{
+				name: 'description',
+				content: pkg.description
+			},
+			{
+				name: 'viewport',
+				content: 'initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width'
+			},
+			{
+				name: 'viewport',
+				content: 'initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width',
+				media: '(device-height: 568px)'
+			}
+		],
+		links: [
+			'https://fonts.googleapis.com/css?family=Roboto',
+			'https://fonts.googleapis.com/icon?family=Material+Icons'
+		]
+	}
+}
 
 function createConfig(env) {
 	env = env || {};
@@ -130,7 +164,7 @@ function createConfig(env) {
 	config.module = {
 		rules: [
 			{
-				test: /\.scss\.d\.ts$/,
+				test: /\.css\.d\.ts$/,
 				loader: 'null-loader',
 				include: [path.resolve(__dirname, 'src')],
 			},
@@ -139,7 +173,7 @@ function createConfig(env) {
 				loader: 'awesome-typescript-loader',
 				exclude: [
 					/node_modules/,
-					/\.scss\.d\.ts$/
+					/\.css\.d\.ts$/
 				]
 			},
 			{
@@ -175,6 +209,9 @@ function createConfig(env) {
 		})
 	];
 
+	if (!env.test) {
+		config.plugins.push(new HtmlWebpackPlugin(htmlTemplate()));
+	}
 	if (env.prod) {
 		config.plugins.push(
 			new ExtractTextPlugin({ filename: 'assets/css/[name].[hash].css' }),
@@ -185,10 +222,6 @@ function createConfig(env) {
 				sourceMap: true
 			}),
 			new webpack.optimize.AggressiveMergingPlugin(),
-			new HtmlWebpackPlugin({
-				template: path.join(__dirname, 'src', 'assets', 'index.tpl.html'),
-				inject: 'body'
-			}),
 			new FaviconsWebpackPlugin({
 				logo: './src/assets/favicon.png',
 				icons: {

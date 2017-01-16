@@ -12,6 +12,7 @@
 		"charset": "utf8",
 		"declaration": true,
 		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
 		"importHelpers": true,
 		"jsx": "react",
 		"noImplicitAny": true,

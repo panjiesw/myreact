@@ -6,8 +6,8 @@
 import * as React from 'react';
 import { Link, withRouter } from 'react-router';
 import { AppBar } from 'react-toolbox/lib/app_bar/AppBar';
-import Flexbox from 'flexbox-react';
-import { IRootStore } from '../../../components/Root';
+import { IRootStore } from 'components/Root';
+import { Row, Col } from 'components/Flex';
 import * as theme from './theme.css';
 
 export interface LandingProps {
@@ -21,7 +21,7 @@ const factory: () => React.ComponentClass<LandingProps> = () =>
 		}
 
 		componentDidMount() {
-			const {rootStore} = this.props;
+			const { rootStore } = this.props;
 			if (rootStore) {
 				rootStore.entered('landing');
 			}
@@ -29,27 +29,28 @@ const factory: () => React.ComponentClass<LandingProps> = () =>
 
 		render(): JSX.Element | null {
 			return (
-				<Flexbox flexWrap='nowrap' flexDirection='column'
-					alignItems='stretch' element='article' >
+				<Row>
 					<AppBar fixed flat
 						theme={theme}
 						title='My React Playground'>
 					</AppBar>
-					<Link to={{pathname: 'auth', state: {inpage: 'auth'}}}>Auth</Link>
-					<Link to={{pathname: 'auth', state: {inpage: 'auth'}}}>Auth</Link>
-					<Link to={{pathname: 'auth', state: {inpage: 'auth'}}}>Auth</Link>
-					<Link to={{pathname: 'auth', state: {inpage: 'auth'}}}>Auth</Link>
-					<Link to={{pathname: 'auth', state: {inpage: 'auth'}}}>Auth</Link>
-					<Link to={{pathname: 'auth', state: {inpage: 'auth'}}}>Auth</Link>
-					<Link to={{pathname: 'auth', state: {inpage: 'auth'}}}>Auth</Link>
-					<Link to={{pathname: 'auth', state: {inpage: 'auth'}}}>Auth</Link>
-					<Link to={{pathname: 'auth', state: {inpage: 'auth'}}}>Auth</Link>
-					<Link to={{pathname: 'auth', state: {inpage: 'auth'}}}>Auth</Link>
-					<Link to={{pathname: 'auth', state: {inpage: 'auth'}}}>Auth</Link>
-					<Link to={{pathname: 'auth', state: {inpage: 'auth'}}}>Auth</Link>
-					<Link to={{pathname: 'auth', state: {inpage: 'auth'}}}>Auth</Link>
-					<Link to={{pathname: 'auth', state: {inpage: 'auth'}}}>Auth</Link>
-				</Flexbox>
+					<Col xs={12}>
+						<Row><Link to={{ pathname: 'auth', state: { inpage: 'auth' } }}>Auth</Link></Row>
+						<Row><Link to={{ pathname: 'auth', state: { inpage: 'auth' } }}>Auth</Link></Row>
+						<Row><Link to={{ pathname: 'auth', state: { inpage: 'auth' } }}>Auth</Link></Row>
+						<Row><Link to={{ pathname: 'auth', state: { inpage: 'auth' } }}>Auth</Link></Row>
+						<Row><Link to={{ pathname: 'auth', state: { inpage: 'auth' } }}>Auth</Link></Row>
+						<Row><Link to={{ pathname: 'auth', state: { inpage: 'auth' } }}>Auth</Link></Row>
+						<Row><Link to={{ pathname: 'auth', state: { inpage: 'auth' } }}>Auth</Link></Row>
+						<Row><Link to={{ pathname: 'auth', state: { inpage: 'auth' } }}>Auth</Link></Row>
+						<Row><Link to={{ pathname: 'auth', state: { inpage: 'auth' } }}>Auth</Link></Row>
+						<Row><Link to={{ pathname: 'auth', state: { inpage: 'auth' } }}>Auth</Link></Row>
+						<Row><Link to={{ pathname: 'auth', state: { inpage: 'auth' } }}>Auth</Link></Row>
+						<Row><Link to={{ pathname: 'auth', state: { inpage: 'auth' } }}>Auth</Link></Row>
+						<Row><Link to={{ pathname: 'auth', state: { inpage: 'auth' } }}>Auth</Link></Row>
+						<Row><Link to={{ pathname: 'auth', state: { inpage: 'auth' } }}>Auth</Link></Row>
+					</Col>
+				</Row>
 			)
 		}
 	}
