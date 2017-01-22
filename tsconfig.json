@@ -1,15 +1,7 @@
 {
 	"compilerOptions": {
-		"target": "es5",
-		"module": "es6",
-		"lib": [
-			"dom",
-			"es6"
-		],
+		"target": "es6",
 		"moduleResolution": "node",
-		"allowUnreachableCode": false,
-		"allowUnusedLabels": false,
-		"charset": "utf8",
 		"declaration": true,
 		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true,
@@ -19,8 +11,6 @@
 		"noImplicitReturns": true,
 		"noImplicitThis": true,
 		"noUnusedParameters": true,
-		"pretty": true,
-		"removeComments": false,
 		"strictNullChecks": true,
 		"outDir": "dist",
 		"baseUrl": ".",
@@ -36,6 +26,7 @@
 	],
 	"compileOnSave": false,
 	"awesomeTypescriptLoaderOptions": {
-		"useCache": true
+		"useCache": true,
+		"useBabel": true
 	}
 }
