@@ -22,14 +22,12 @@ export interface IFirebaseStore {
 }
 
 export class FirebaseStore implements IFirebaseStore {
-	public loggedInSubject: ReplaySubject<FirebaseUser>;
-	public userObservable: MobxRxObservable<FirebaseUser>;
+	public loggedInSubject: ReplaySubject<FirebaseUser> = new ReplaySubject<FirebaseUser>(1);
+	public userObservable: MobxRxObservable<FirebaseUser> = fromStream<FirebaseUser>(this.loggedInSubject);
 	public app: firebase.app.App;
 
 	constructor(config: IFirebaseConfig) {
 		this.app = firebase.initializeApp(config);
-		this.loggedInSubject = new ReplaySubject<FirebaseUser>(1);
-		this.userObservable = fromStream<FirebaseUser>(this.loggedInSubject);
 		this.app.auth().onAuthStateChanged(this.loggedInSubject);
 	}
 }

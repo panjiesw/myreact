@@ -16,3 +16,4 @@ src/components/helpers.css
 src/routes/**/helpers.css
 .firebaserc
 firebase.json
+.vscode/chrome

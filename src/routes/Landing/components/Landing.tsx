@@ -33,6 +33,5 @@ export default class Landing extends React.PureComponent<LandingProps, React.Com
 
 	private goToApp = () => {
 		// this.props.router.push('/app');
-		console.log('to app');
 	}
 };
