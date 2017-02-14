@@ -3,13 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-@import 'react-md/src/scss/transitions';
-@import 'react-md/src/scss/helpers';
-@import 'react-md/src/scss/typography';
-
 :global {
-	@include react-md-typography;
-
 	html,
 	body,
 	.my-app {

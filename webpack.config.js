@@ -118,6 +118,7 @@ const nonProd = () => ({
 			'webpack-dev-server/client?http://localhost:7777',
 			'webpack/hot/only-dev-server',
 			'./src/sass/entry/globals.scss',
+			'./src/sass/entry/md.scss',
 			'./src/index'
 		]
 	},
@@ -159,6 +160,7 @@ const production = () => merge([
 			],
 			app: [
 				'./src/sass/entry/globals.scss',
+				'./src/sass/entry/md.scss',
 				'./src/index'
 			]
 		},

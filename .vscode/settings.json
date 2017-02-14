@@ -22,6 +22,7 @@
 	"licenser.author": "Panjie Setiawan Wicaksono",
 	"licenser.projectName": "react-toolbox-link",
 	"licenser.license": "MIT",
+	"scss.validate": false,
 	"stylelint.enable": true,
 	"tslint.enable": true,
 	"tslint.ignoreDefinitionFiles": true,

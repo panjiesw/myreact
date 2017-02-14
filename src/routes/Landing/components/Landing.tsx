@@ -4,24 +4,35 @@
 // https://opensource.org/licenses/MIT
 
 import * as React from 'react';
+import { InjectedRouter } from 'react-router';
 import Flexbox from 'flexbox-react';
 import { IRootStore } from 'components/Root/store';
+import Button from 'react-md/lib/Buttons/Button';
 
 export type LandingProps = {
 	rootStore: IRootStore;
+	router: InjectedRouter;
 };
 
 export default class Landing extends React.PureComponent<LandingProps, React.ComponentState> {
+
 	public componentDidMount() {
-		// const {rootStore} = this.props;
-		// rootStore.entered('landing');
+		const {rootStore} = this.props;
+		rootStore.entered('landing');
 	}
 
 	public render(): JSX.Element {
 		return (
-			<Flexbox flexWrap='nowrap' flexDirection='column' alignItems='stretch' element='article'>
-				<h1>Hello</h1>
+			<Flexbox width='100%'
+					flexWrap='nowrap' flexDirection='column'
+					alignItems='center' justifyContent='center' element='article'>
+				<Button raised primary label='Go To App' onClick={this.goToApp}></Button>
 			</Flexbox>
 		);
+	}
+
+	private goToApp = () => {
+		// this.props.router.push('/app');
+		console.log('to app');
 	}
 };
