@@ -3,10 +3,10 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import * as React from 'react';
+import React, { PureComponent, ComponentClass } from 'react';
 import { RouteComponentProps } from 'react-router';
 import Flexbox from 'flexbox-react';
-import FullPageSpinner, {FullPageSpinnerTheme} from 'components/Spinner/FullPageSpinner';
+import FullPageSpinner, { FullPageSpinnerTheme } from 'components/Spinner/FullPageSpinner';
 import { IRootStore } from './store';
 import * as defaultSpinnerTheme from 'components/Spinner/full-page-spinner-default.scss';
 
@@ -18,8 +18,8 @@ export type RootState = {
 	spinnerTheme: FullPageSpinnerTheme;
 };
 
-const factory = (store: IRootStore): React.ComponentClass<IRootProps> =>
-	class Root extends React.PureComponent<IRootProps, RootState> {
+const factory = (store: IRootStore): ComponentClass<IRootProps> =>
+	class Root extends PureComponent<IRootProps, RootState> {
 		public state: RootState = {
 			spinnerActive: false,
 			spinnerTheme: defaultSpinnerTheme,

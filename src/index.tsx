@@ -3,7 +3,6 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-// tslint:disable-next-line:no-unused-variable
 import * as React from 'react';
 
 import { render } from 'react-dom';
@@ -12,12 +11,16 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 import { getPolyfill } from './util/loaders/polyfills';
 import { Root } from './components/Root';
 import landingRoute from './routes/Landing';
+import authRoutes from './routes/Auth';
+import appRoutes from './routes/App';
 
 const browserHistory = useRouterHistory(createBrowserHistory)({ basename: '/' });
 
 const rootRoute: PlainRoute = {
 	childRoutes: [
 		landingRoute,
+		authRoutes,
+		appRoutes,
 	],
 };
 

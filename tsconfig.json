@@ -16,6 +16,7 @@
 		"noImplicitReturns": true,
 		"noImplicitThis": true,
 		"noUnusedParameters": true,
+		"noUnusedLocals": true,
 		"strictNullChecks": true,
 		"outDir": "dist",
 		"baseUrl": ".",

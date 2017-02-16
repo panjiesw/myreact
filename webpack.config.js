@@ -41,6 +41,7 @@ const htmlTemplate = (filename = 'index.html') => ({
 const style = () => configs.style({ test: /\.scss$/ })
 	.use(configs.style.css({
 		modules: true,
+		camelCase: true,
 		localIdentName: '[name]__[local]___[hash:base64:5]',
 		importLoaders: 2
 	}))

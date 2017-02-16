@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import * as React from 'react';
+import React, { PureComponent } from 'react';
 import cn from 'classnames';
 import Portal from 'react-md/lib/Helpers/Portal';
 import TICK from 'react-md/lib/constants/CSSTransitionGroupTick';
@@ -31,7 +31,7 @@ export type FullPageSpinnerState = {
 	overlayActive: boolean;
 };
 
-class FullPageSpinner extends React.PureComponent<FullPageSpinnerProps, FullPageSpinnerState> {
+class FullPageSpinner extends PureComponent<FullPageSpinnerProps, FullPageSpinnerState> {
 	public state: FullPageSpinnerState = {
 		overlay: false,
 		overlayActive: false,

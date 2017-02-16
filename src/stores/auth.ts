@@ -24,11 +24,21 @@ export class AuthStore implements IAuthStore {
 	public shouldEnter: EnterHook = (nextState, replace, cb) => {
 		this.firebaseStore.loggedInSubject.first().subscribe((user) => {
 			if (nextState.location.pathname === 'auth' && user !== null) {
-				replace('app');
+				replace({
+					pathname: '/app',
+					state: {
+						inpage: 'app',
+					},
+				});
 			} else if (nextState.location.pathname !== 'auth' &&
 				nextState.location.pathname !== '/' &&
 				user === null) {
-				replace('auth');
+				replace({
+					pathname: '/auth',
+					state: {
+						inpage: 'auth',
+					},
+				});
 			}
 
 			if (cb) {

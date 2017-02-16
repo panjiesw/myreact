@@ -63,7 +63,7 @@ declare module 'react-md/lib/Inks' {
 
 	type InteractionTypes = 'keyboard' | 'mouse' | 'touch';
 
-	export interface InjectedInkProps extends React.HTMLAttributes<any> {
+	export interface InjectedInkProps extends React.HTMLProps<any> {
 		inkStyle?: React.CSSProperties;
 		inkClassName?: string;
 		inkContainerStyle?: React.CSSProperties;
@@ -86,6 +86,155 @@ declare module 'react-md/lib/Inks' {
 	type injectInk = (ComposedComponent: React.Component<InjectedInkProps, {}>) => InkedComponent;
 
 	export default injectInk;
+}
+
+declare module 'react-md/lib/Drawers' {
+	import * as React from 'react';
+
+	export enum DrawerTypes {
+		// Permanent drawers
+		FULL_HEIGHT,
+		CLIPPED,
+		FLOATING,
+
+		// Persistent drawers
+		PERSISTENT,
+		PERSISTENT_MINI,
+
+		// Temporary
+		TEMPORARY,
+		TEMPORARY_MINI,
+	}
+
+	export type DrawerTypesType = 'full-height' | 'clipped' | 'floating' | 'persistent' | 'persistent-mini' | 'temporary' | 'temporary-mini';
+
+	export type MediaTypes = 'mobile' | 'tablet' | 'desktop';
+	export type DrawerPositions = 'left' | 'right';
+
+	interface DrawerProps {
+		navStyle?: React.CSSProperties;
+		navClassName?: string;
+		component?: Function | string;
+		navItems?: Array<React.ReactElement<any> | { divider?: boolean, subheader?: boolean, primaryText?: string }>;
+		autoclose?: boolean;
+		header?: React.ReactNode;
+		mobileType?: 'temporary' | 'temporary-mini';
+		mobileMinWidth?: number;
+		tabletType?: DrawerTypes | DrawerTypesType;
+		tabletMinWidth?: number;
+		desktopType?: DrawerTypes | DrawerTypesType;
+		desktopMinWidth?: number;
+		type?: DrawerTypes | DrawerTypesType;
+		onMediaTypeChange?: (type: DrawerTypesType, media: { mobile: boolean, tablet: boolean, desktop: boolean }) => void;
+		defaultMedia: MediaTypes;
+		overlay?: boolean;
+		renderNode?: Object;
+		defaultVisible?: boolean;
+		visible?: boolean;
+		onVisibilityToggle?: (visible: boolean, event: Event) => void;
+		position?: DrawerPositions;
+		inline?: boolean;
+		transitionDuration?: number;
+		clickableDesktopOverlay?: boolean;
+		closeOnNavItemClick?: boolean;
+		children?: React.ReactNode;
+	}
+
+	export default class Drawer extends React.Component<DrawerProps, {}> {
+		static DrawerTypes: DrawerTypes;
+		static getCurrentMedia(props?: {
+			mobileMinWidth: number,
+			tabletMinWidth: number,
+			desktopMinWidth: number,
+			mobileType: 'temporary' | 'temporary-mini',
+			tabletType: DrawerTypes | DrawerTypesType,
+			desktopType: DrawerTypes | DrawerTypesType,
+		}): { type: DrawerTypesType, mobile: boolean, tablet: boolean, desktop: boolean };
+
+		static matchesMedia(min: number, max?: number): boolean;
+	}
+}
+
+declare module 'react-md/lib/NavigationDrawers' {
+	import * as React from 'react';
+	import { DrawerTypes, DrawerTypesType, DrawerPositions, MediaTypes } from 'react-md/lib/Drawers';
+
+	interface NavigationDrawerProps extends React.HTMLProps<any> {
+		toolbarStyle?: React.CSSProperties;
+		toolbarClassName?: string;
+		toolbarTitleStyle?: React.CSSProperties;
+		toolbarTitleClassName?: string;
+		drawerStyle?: React.CSSProperties;
+		drawerClassName?: string;
+		contentStyle?: React.CSSProperties;
+		contentClassName?: string;
+		children?: React.ReactNode;
+		includeDrawerHeader?: boolean;
+		drawerHeader?: React.ReactNode;
+		drawerTitle?: React.ReactNode;
+		drawerChildren?: React.ReactNode;
+		position?: DrawerPositions;
+		navItems?: Array<React.ReactElement<any> | { divider?: boolean, subheader?: boolean, primaryText?: React.ReactNode }>;
+		mobileDrawerType?: 'temporary' | 'temporary-mini';
+		tabletDrawerType?: DrawerTypes | DrawerTypesType;
+		desktopDrawerType?: DrawerTypes | DrawerTypesType;
+		drawerType?: DrawerTypes | DrawerTypesType;
+		defaultMedia?: MediaTypes;
+		mobileMinWidth?: number;
+		tabletMinWidth?: number;
+		desktopMinWidth?: number;
+		renderNode?: Object;
+		onMediaTypeChange?: (type: DrawerTypesType, media: { mobile: boolean, tablet: boolean, desktop: boolean }) => void;
+		defaultVisible?: boolean;
+		visible?: boolean;
+		onVisibilityToggle?: (visible: boolean, event: Event) => void;
+		extractMini?: boolean;
+		miniDrawerHeader?: React.ReactNode;
+		miniDrawerChildren?: React.ReactNode;
+		autoclose?: boolean;
+		toolbarTitle?: React.ReactNode;
+		toolbarTitleMenu?: React.ReactElement<any>;
+		toolbarThemeType?: 'default' | 'colored' | 'themed';
+		toolbarSingleColor?: boolean;
+		toolbarProminent?: boolean;
+		toolbarProminentTitle?: boolean;
+		toolbarActons?: React.ReactElement<any> | Array<React.ReactElement<any>>;
+		toolbarChildren?: React.ReactNode;
+		contentComponent?: Function | string;
+		footer?: React.ReactNode;
+		temporaryIconChildren?: React.ReactNode;
+		temporaryIconClassName?: string;
+		persistentIconChildren?: React.ReactNode;
+		persistentIconClassName?: string;
+		transitionName?: string;
+		transitionEnterTimeout?: number;
+		transitionLeaveTimeout?: number;
+		drawerTransitionDuration?: number;
+		contentProps?: Object;
+		contentId?: number | string;
+		jumpLabel?: string;
+	}
+
+	interface CloseButtonProps extends React.HTMLProps<any> {
+	}
+
+	interface JumpToContentLinkProps extends React.HTMLProps<any> {
+	}
+
+	export default class NavigationDrawer extends React.Component<NavigationDrawerProps, {}> {
+		static getCurrentMedia(props?: {
+			mobileMinWidth: number,
+			tabletMinWidth: number,
+			desktopMinWidth: number,
+			mobileDrawerType: 'temporary' | 'temporary-mini',
+			tabletDrawerType: DrawerTypes | DrawerTypesType,
+			desktopDrawerType: DrawerTypes | DrawerTypesType,
+		}): { type: DrawerTypesType, mobile: boolean, tablet: boolean, desktop: boolean };
+	}
+
+	export { NavigationDrawer };
+	export class CloseButton extends React.Component<CloseButtonProps, {}> { }
+	export class JumpToContentLink extends React.Component<JumpToContentLinkProps, {}> { }
 }
 
 declare module 'react-md/lib/Tooltips' {
