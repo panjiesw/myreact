@@ -48,6 +48,7 @@
 		"flexbox-react": "^4.2.1",
 		"html-webpack-plugin": "^2.26.0",
 		"loader-utils": "^0.2.16",
+		"mobx-react-devtools": "^4.2.11",
 		"node-sass": "^4.3.0",
 		"null-loader": "^0.1.1",
 		"postcss-loader": "^1.2.2",

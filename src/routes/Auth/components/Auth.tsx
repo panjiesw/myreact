@@ -7,6 +7,7 @@ import React, { PureComponent, ComponentClass, ComponentState } from 'react';
 import { InjectedRouter, RouteComponentProps, withRouter } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { when } from 'mobx';
+import DevTools from 'mobx-react-devtools';
 import Flexbox from 'flexbox-react';
 import { IRootStore } from 'components/Root';
 import { IAuthUIStore } from './store';
@@ -23,7 +24,7 @@ export class AuthRaw extends PureComponent<AuthProps, ComponentState> {
 	public componentWillMount() {
 		const {rootStore} = this.props;
 		if (rootStore.adjustRootLayout) {
-			rootStore.adjustRootLayout({flexDirection: 'row'});
+			rootStore.adjustRootLayout({ flexDirection: 'row' });
 		}
 	}
 
@@ -40,11 +41,18 @@ export class AuthRaw extends PureComponent<AuthProps, ComponentState> {
 	}
 
 	public render(): JSX.Element | null {
+		let devtools: any;
+		if (process.env.NODE_ENV !== 'production') {
+			devtools = <DevTools />;
+		} else {
+			devtools = null;
+		}
 		return (
 			<Flexbox width='100%'
 				flexWrap='nowrap' flexDirection='column'
 				alignItems='center' justifyContent='center' >
 				<div id='fuiContainer'></div>
+				{devtools}
 			</Flexbox>
 		);
 	}

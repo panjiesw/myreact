@@ -145,7 +145,7 @@ const development = () => merge([
 		port: 7777,
 		hot: true,
 		hotOnly: false,
-		contentBase: configs.utils.resolve(['dist']),
+		contentBase: configs.utils.resolve(['src', 'assets']),
 		publicPath: '/'
 	}),
 ]);

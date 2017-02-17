@@ -9,6 +9,7 @@ import { when } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import NavigationDrawer from 'react-md/lib/NavigationDrawers';
 import Button from 'react-md/lib/Buttons/Button';
+import DevTools from 'mobx-react-devtools';
 import { IRootStore } from 'components/Root';
 import { IFirebaseStore } from 'stores/firebase';
 import Content from './Content';
@@ -39,12 +40,19 @@ export class AppRaw extends PureComponent<AppProps, ComponentState> {
 
 	public render(): JSX.Element {
 		// const {children} = this.props;
+		let devtools: any;
+		if (process.env.NODE_ENV !== 'production') {
+			devtools = <DevTools />;
+		} else {
+			devtools = null;
+		}
 		return (
 			<NavigationDrawer
 				contentComponent={Content}
 				drawerType='clipped'
 				toolbarTitle='MyReact Dashboard'>
 				<Button primary raised label='Logout' onClick={this.logout}></Button>
+				{devtools}
 			</NavigationDrawer>
 		);
 	}
