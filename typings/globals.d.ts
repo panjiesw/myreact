@@ -9,6 +9,12 @@ declare interface NodeRequire {
 	ensure: (paths: string[], callback: (require: <T>(path: string) => T) => void, chunkName?: string) => void;
 }
 
+declare interface NodeModule {
+	hot?: {
+		accept(ac?: string[], cb?: Function): void;
+	}
+}
+
 declare interface TDReq<T> {
 	default: T
 }

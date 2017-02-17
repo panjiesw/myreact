@@ -20,6 +20,12 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-hot-loader@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/react-hot-loader/-/react-hot-loader-3.0.1.tgz#d15e3af68595c5d6c5576cfcc18e28d578924fce"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-router@^2.0.45":
   version "2.0.45"
   resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-2.0.45.tgz#cd859cb3dc4eeeef0dcf4817fc4ef3be13255be0"
@@ -269,7 +275,7 @@ aws4@^1.2.1:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.5.0.tgz#0a29ffb79c31c9e712eeb087e8e7a64b4a56d755"
 
-babel-code-frame@^6.11.0, babel-code-frame@^6.20.0:
+babel-code-frame@^6.11.0, babel-code-frame@^6.20.0, babel-code-frame@^6.22.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-code-frame/-/babel-code-frame-6.22.0.tgz#027620bee567a88c32561574e7fd0801d33118e4"
   dependencies:
@@ -277,12 +283,55 @@ babel-code-frame@^6.11.0, babel-code-frame@^6.20.0:
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-babel-runtime@^6.11.6, babel-runtime@^6.20.0:
+babel-messages@^6.23.0:
+  version "6.23.0"
+  resolved "https://registry.yarnpkg.com/babel-messages/-/babel-messages-6.23.0.tgz#f3cdf4703858035b2a2951c6ec5edf6c62f2630e"
+  dependencies:
+    babel-runtime "^6.22.0"
+
+babel-runtime@^6.11.6, babel-runtime@^6.20.0, babel-runtime@^6.22.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.22.0.tgz#1cf8b4ac67c77a4ddb0db2ae1f74de52ac4ca611"
   dependencies:
     core-js "^2.4.0"
     regenerator-runtime "^0.10.0"
+
+babel-template@^6.7.0:
+  version "6.23.0"
+  resolved "https://registry.yarnpkg.com/babel-template/-/babel-template-6.23.0.tgz#04d4f270adbb3aa704a8143ae26faa529238e638"
+  dependencies:
+    babel-runtime "^6.22.0"
+    babel-traverse "^6.23.0"
+    babel-types "^6.23.0"
+    babylon "^6.11.0"
+    lodash "^4.2.0"
+
+babel-traverse@^6.23.0:
+  version "6.23.1"
+  resolved "https://registry.yarnpkg.com/babel-traverse/-/babel-traverse-6.23.1.tgz#d3cb59010ecd06a97d81310065f966b699e14f48"
+  dependencies:
+    babel-code-frame "^6.22.0"
+    babel-messages "^6.23.0"
+    babel-runtime "^6.22.0"
+    babel-types "^6.23.0"
+    babylon "^6.15.0"
+    debug "^2.2.0"
+    globals "^9.0.0"
+    invariant "^2.2.0"
+    lodash "^4.2.0"
+
+babel-types@^6.23.0:
+  version "6.23.0"
+  resolved "https://registry.yarnpkg.com/babel-types/-/babel-types-6.23.0.tgz#bb17179d7538bad38cd0c9e115d340f77e7e9acf"
+  dependencies:
+    babel-runtime "^6.22.0"
+    esutils "^2.0.2"
+    lodash "^4.2.0"
+    to-fast-properties "^1.0.1"
+
+babylon@^6.11.0, babylon@^6.15.0:
+  version "6.15.0"
+  resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.15.0.tgz#ba65cfa1a80e1759b0e89fb562e27dccae70348e"
 
 balanced-match@^0.4.0, balanced-match@^0.4.1, balanced-match@^0.4.2:
   version "0.4.2"
@@ -1299,6 +1348,12 @@ error-ex@^1.2.0:
   dependencies:
     is-arrayish "^0.2.1"
 
+error-stack-parser@^1.3.6:
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/error-stack-parser/-/error-stack-parser-1.3.6.tgz#e0e73b93e417138d1cd7c0b746b1a4a14854c292"
+  dependencies:
+    stackframe "^0.3.1"
+
 es6-promise@^3.0.2:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-3.3.1.tgz#a08cdde84ccdbf34d027a1451bc91d4bcd28a613"
@@ -1768,12 +1823,16 @@ glob@~5.0.0:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-global@~4.3.0:
+global@^4.3.0, global@~4.3.0:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/global/-/global-4.3.1.tgz#5f757908c7cbabce54f386ae440e11e26b7916df"
   dependencies:
     min-document "^2.19.0"
     process "~0.5.1"
+
+globals@^9.0.0:
+  version "9.16.0"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-9.16.0.tgz#63e903658171ec2d9f51b1d31de5e2b8dc01fb80"
 
 globby@^5.0.0:
   version "5.0.0"
@@ -2110,7 +2169,7 @@ interpret@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.1.tgz#d579fb7f693b858004947af39fa0db49f795602c"
 
-invariant@^2.2.1:
+invariant@^2.2.0, invariant@^2.2.1:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
   dependencies:
@@ -2616,7 +2675,7 @@ lodash@^3.2.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.0.0, lodash@^4.1.0, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4:
+lodash@^4.0.0, lodash@^4.1.0, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -3766,6 +3825,10 @@ react-addons-transition-group@^15.4.2:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
+react-deep-force-update@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-2.0.1.tgz#4f7f6c12c3e7de42f345992a3c518236fa1ecad3"
+
 react-dom@^15.4.2:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.2.tgz#015363f05b0a1fd52ae9efdd3a0060d90695208f"
@@ -3782,15 +3845,15 @@ react-event-listener@^0.4.0:
     react-addons-shallow-compare "^15.4.2"
     warning "^3.0.0"
 
-react-hot-api@^0.4.5:
-  version "0.4.7"
-  resolved "https://registry.yarnpkg.com/react-hot-api/-/react-hot-api-0.4.7.tgz#a7e22a56d252e11abd9366b61264cf4492c58171"
-
-react-hot-loader@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-1.3.1.tgz#c95647ae78b73dfceff6ec71ffcb04182ff6daf9"
+react-hot-loader@^3.0.0-beta.6:
+  version "3.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-3.0.0-beta.6.tgz#463fac0bfc8b63a8385258af20c91636abce75f4"
   dependencies:
-    react-hot-api "^0.4.5"
+    babel-template "^6.7.0"
+    global "^4.3.0"
+    react-deep-force-update "^2.0.1"
+    react-proxy "^3.0.0-alpha.0"
+    redbox-react "^1.2.5"
     source-map "^0.4.4"
 
 react-md@^1.0.2:
@@ -3815,6 +3878,12 @@ react-prop-types@^0.4.0:
   resolved "https://registry.yarnpkg.com/react-prop-types/-/react-prop-types-0.4.0.tgz#f99b0bfb4006929c9af2051e7c1414a5c75b93d0"
   dependencies:
     warning "^3.0.0"
+
+react-proxy@^3.0.0-alpha.0:
+  version "3.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/react-proxy/-/react-proxy-3.0.0-alpha.1.tgz#4400426bcfa80caa6724c7755695315209fa4b07"
+  dependencies:
+    lodash "^4.6.1"
 
 react-router@^3.0.2:
   version "3.0.2"
@@ -3937,6 +4006,13 @@ readdirp@^2.0.0:
     minimatch "^3.0.2"
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
+
+redbox-react@^1.2.5:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/redbox-react/-/redbox-react-1.3.3.tgz#63ec9c2cb9c620c46e2b9f8543b4898f1b787e41"
+  dependencies:
+    error-stack-parser "^1.3.6"
+    object-assign "^4.0.1"
 
 redent@^1.0.0:
   version "1.0.0"
@@ -4384,6 +4460,10 @@ sshpk@^1.7.0:
     jsbn "~0.1.0"
     tweetnacl "~0.14.0"
 
+stackframe@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/stackframe/-/stackframe-0.3.1.tgz#33aa84f1177a5548c8935533cbfeb3420975f5a4"
+
 "statuses@>= 1.3.1 < 2", statuses@~1.3.0, statuses@~1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.3.1.tgz#faf51b9eb74aaef3b3acf4ad5f61abf24cb7b93e"
@@ -4694,6 +4774,10 @@ tinycolor2@^1.1.2:
 to-arraybuffer@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/to-arraybuffer/-/to-arraybuffer-1.0.1.tgz#7d229b1fcc637e466ca081180836a7aabff83f43"
+
+to-fast-properties@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-1.0.2.tgz#f3f5c0c3ba7299a7ef99427e44633257ade43320"
 
 to-ico@^1.1.2:
   version "1.1.3"

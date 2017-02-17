@@ -6,15 +6,16 @@
 import * as React from 'react';
 
 import { render } from 'react-dom';
-import { Router, PlainRoute, useRouterHistory } from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
-import { getPolyfill } from './util/loaders/polyfills';
-import { Root } from './components/Root';
-import landingRoute from './routes/Landing';
-import authRoutes from './routes/Auth';
-import appRoutes from './routes/App';
+import { PlainRoute } from 'react-router';
+import { AppContainer } from 'react-hot-loader';
+import { getPolyfill } from 'util/loaders/polyfills';
+import { Root } from 'components/Root';
+import HackyRouter from 'components//HackyRouter';
+import landingRoute from 'routes/Landing';
+import authRoutes from 'routes/Auth';
+import appRoutes from 'routes/App';
 
-const browserHistory = useRouterHistory(createBrowserHistory)({ basename: '/' });
+const appEl = document.getElementById('app');
 
 const rootRoute: PlainRoute = {
 	childRoutes: [
@@ -24,12 +25,20 @@ const rootRoute: PlainRoute = {
 	],
 };
 
-getPolyfill(() => {
+let doRender = () => {
 	render((
-		<Root>
-			<Router
-				history={browserHistory}
-				routes={rootRoute} />
-		</Root>
-	), document.getElementById('app'));
-});
+		<AppContainer>
+			<Root>
+				<HackyRouter
+					routes={rootRoute} />
+			</Root>
+		</AppContainer>
+	), appEl);
+};
+
+getPolyfill(doRender);
+
+if (module.hot) {
+	module.hot.accept();
+	doRender();
+}

@@ -91,14 +91,7 @@ const common = () => merge([
 				}
 			})
 		]
-	},
-	configs.typescript({
-		exclude: [
-			/node_modules/,
-			/\.scss\.d\.ts$/,
-			configs.utils.resolve(['dist'])
-		]
-	})
+	}
 ])
 
 const nonTest = () => ({
@@ -116,6 +109,7 @@ const nonProd = () => ({
 	performance: false,
 	entry: {
 		app: [
+			'react-hot-loader/patch',
 			'webpack-dev-server/client?http://localhost:7777',
 			'webpack/hot/only-dev-server',
 			'./src/sass/entry/globals.scss',
@@ -133,23 +127,51 @@ const development = () => merge([
 	style(),
 	nonTest(),
 	nonProd(),
+	{
+		module: {
+			rules: [{
+				test: /\.ts(x?)$/,
+				exclude: [
+					/node_modules/,
+					/\.scss\.d\.ts$/,
+					configs.utils.resolve(['dist'])
+				],
+				use: ['react-hot-loader/webpack', 'awesome-typescript-loader']
+			}]
+		}
+	},
 	configs.devServer({
 		host: 'localhost',
 		port: 7777,
 		hot: true,
 		hotOnly: false,
-		contentBase: configs.utils.resolve(['src', 'assets'])
+		contentBase: configs.utils.resolve(['dist']),
+		publicPath: '/'
 	}),
 ]);
 
 const test = () => merge([
 	common(),
+	configs.typescript({
+		exclude: [
+			/node_modules/,
+			/\.scss\.d\.ts$/,
+			configs.utils.resolve(['dist'])
+		]
+	}),
 	style(),
 	nonProd(),
 ]);
 
 const production = () => merge([
 	common(),
+	configs.typescript({
+		exclude: [
+			/node_modules/,
+			/\.scss\.d\.ts$/,
+			configs.utils.resolve(['dist'])
+		]
+	}),
 	extractedStyle(),
 	nonTest(),
 	{
