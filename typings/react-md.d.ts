@@ -200,7 +200,7 @@ declare module 'react-md/lib/NavigationDrawers' {
 		toolbarProminentTitle?: boolean;
 		toolbarActons?: React.ReactElement<any> | Array<React.ReactElement<any>>;
 		toolbarChildren?: React.ReactNode;
-		contentComponent?: Function | string;
+		contentComponent?: React.ReactType;
 		footer?: React.ReactNode;
 		temporaryIconChildren?: React.ReactNode;
 		temporaryIconClassName?: string;

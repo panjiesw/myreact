@@ -11,6 +11,7 @@ import NavigationDrawer from 'react-md/lib/NavigationDrawers';
 import Button from 'react-md/lib/Buttons/Button';
 import { IRootStore } from 'components/Root';
 import { IFirebaseStore } from 'stores/firebase';
+import Content from './Content';
 
 export type AppProps = {
 	firebaseStore: IFirebaseStore;
@@ -19,6 +20,13 @@ export type AppProps = {
 } & RouteComponentProps<{}, {}>;
 
 export class AppRaw extends PureComponent<AppProps, ComponentState> {
+	public componentWillMount() {
+		const {rootStore} = this.props;
+		if (rootStore.adjustRootLayout) {
+			rootStore.adjustRootLayout({flexDirection: 'column'});
+		}
+	}
+
 	public componentDidMount() {
 		const { rootStore, firebaseStore } = this.props;
 		when(
@@ -32,7 +40,10 @@ export class AppRaw extends PureComponent<AppProps, ComponentState> {
 	public render(): JSX.Element {
 		// const {children} = this.props;
 		return (
-			<NavigationDrawer>
+			<NavigationDrawer
+				contentComponent={Content}
+				drawerType='clipped'
+				toolbarTitle='MyReact Dashboard'>
 				<Button primary raised label='Logout' onClick={this.logout}></Button>
 			</NavigationDrawer>
 		);

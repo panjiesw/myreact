@@ -20,6 +20,13 @@ export type AuthProps = {
 
 export class AuthRaw extends PureComponent<AuthProps, ComponentState> {
 
+	public componentWillMount() {
+		const {rootStore} = this.props;
+		if (rootStore.adjustRootLayout) {
+			rootStore.adjustRootLayout({flexDirection: 'row'});
+		}
+	}
+
 	public componentDidMount() {
 		this.startUI();
 		const { authUIStore, rootStore } = this.props;

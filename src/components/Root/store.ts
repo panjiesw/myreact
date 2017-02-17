@@ -6,6 +6,7 @@
 import { EnterHook } from 'react-router';
 
 export interface IRootStore {
+	adjustRootLayout: Function | undefined;
 	rootHook: Function | undefined;
 	mountedHook: Function | undefined;
 	entered(name: string): void;
@@ -17,6 +18,7 @@ export type RootHook = (spinnerTheme?: any) => void | undefined;
 export default class RootStore implements IRootStore {
 	public rootHook: RootHook;
 	public mountedHook: Function | undefined;
+	public adjustRootLayout: Function | undefined;
 
 	constructor(private enteredSection = new Map<string, any>()) { }
 
