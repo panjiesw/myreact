@@ -1,0 +1,23 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "editor.insertSpaces": false,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": true,
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 120,
+  "editor.rulers": [
+    120
+  ],
+  "editor.trimAutoWhitespace": true,
+  "files.insertFinalNewline": true,
+  "licenser.author": "Panjie Setiawan Wicaksono",
+  "licenser.projectName": "myreact",
+  "licenser.license": "MIT",
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "tslint.enable": true,
+  "tslint.ignoreDefinitionFiles": true,
+  "tslint.jsEnable": true,
+  "tslint.exclude": [
+    "**/lib/**"
+  ]
+}

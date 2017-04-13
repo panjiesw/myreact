@@ -1,0 +1,14 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"allowJs": false,
+		"rootDir": "src",
+		"outDir": "lib",
+		"declaration": true,
+		"removeComments": true
+	},
+	"exclude": [
+		"node_modules",
+		"lib"
+	]
+}
