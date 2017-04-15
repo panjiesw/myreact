@@ -15,6 +15,9 @@
 		"indent": [
 			true,
 			"tabs"
+		],
+		"variable-name": [
+			true, "allow-leading-underscore"
 		]
 	},
 	"defaultSeverity": "warning"
