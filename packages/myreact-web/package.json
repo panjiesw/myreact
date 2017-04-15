@@ -35,6 +35,7 @@
 	"dependencies": {
 		"myreact": "^1.0.0-alpha.1",
 		"react": "16.0.0-alpha.6",
+		"react-router-dom": "^4.1.1",
 		"tslib": "^1.6.0"
 	}
 }
