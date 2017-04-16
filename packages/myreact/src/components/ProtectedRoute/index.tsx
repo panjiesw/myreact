@@ -3,10 +3,9 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import React, { PureComponent, ComponentClass, PropTypes, ReactNode, SFC } from 'react';
+import React, { Component, ComponentClass, PropTypes, ReactNode, SFC } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router';
-import { inject, observer } from 'mobx-react';
-import { IAuthStore } from '../stores/auth';
+import { IAuthStore } from '../../stores/auth';
 
 export interface IProtectedRouteProps extends RouteProps {
 	authStore: IAuthStore;
@@ -17,7 +16,7 @@ export interface IPProtectedRouteProps extends RouteProps {
 	authStore?: IAuthStore;
 }
 
-class ProtectedRoute extends PureComponent<IProtectedRouteProps, void> {
+class ProtectedRoute extends Component<IProtectedRouteProps, void> {
 	public static propTypes = {
 		authStore: PropTypes.any.isRequired,
 	};
@@ -43,5 +42,3 @@ class ProtectedRoute extends PureComponent<IProtectedRouteProps, void> {
 }
 
 export { ProtectedRoute as ProtectedRouteRaw };
-export default inject<IPProtectedRouteProps>('authStore')(
-	observer<IPProtectedRouteProps>(ProtectedRoute));

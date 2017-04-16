@@ -17,11 +17,48 @@
 			"tabs"
 		],
 		"variable-name": [
-			true, "allow-leading-underscore"
+			true,
+			"allow-leading-underscore"
 		],
 		"ordered-imports": [
 			false
+		],
+		"object-literal-sort-keys": false,
+		"jsx-no-multiline-js": [
+			false
+		],
+		"jsx-boolean-value": [
+			false
 		]
+	},
+	"jsRules": {
+		"max-line-length": [
+			true,
+			120
+		],
+		"quotemark": [
+			true,
+			"single"
+		],
+		"indent": [
+			true,
+			"tabs"
+		],
+		"variable-name": [
+			true,
+			"allow-leading-underscore"
+		],
+		"ordered-imports": [
+			false
+		],
+		"object-literal-sort-keys": false,
+		"jsx-no-multiline-js": [
+			false
+		],
+		"jsx-boolean-value": [
+			false
+		],
+		"no-unused-expression": true
 	},
 	"defaultSeverity": "warning"
 }

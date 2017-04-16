@@ -4,5 +4,6 @@
     "packages/*"
   ],
   "version": "1.0.0-alpha.1",
-  "npmClient": "yarn"
+  "npmClient": "yarn",
+  "hoist": "+(jest|react-test-*|del-cli|typescript|tslint*|babel-*)"
 }
