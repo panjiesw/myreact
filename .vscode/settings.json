@@ -18,6 +18,7 @@
   "tslint.ignoreDefinitionFiles": true,
   "tslint.jsEnable": true,
   "tslint.exclude": [
-    "**/lib/**"
+    "**/lib/**",
+    "**/node_modules/**"
   ]
 }

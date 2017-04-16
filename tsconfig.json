@@ -1,7 +1,9 @@
 {
 	"compilerOptions": {
-		"allowJs": true,
 		"target": "es6",
+		"module": "es6",
+		"moduleResolution": "node",
+		"jsx": "react-native",
 		"strictNullChecks": true,
 		"importHelpers": true,
 		"allowSyntheticDefaultImports": true,
@@ -10,12 +12,13 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"experimentalDecorators": true,
-		"jsx": "react-native",
-		"module": "es6",
-		"moduleResolution": "node",
+		"removeComments": true,
+		"rootDir": "src",
+		"outDir": "lib",
 		"baseUrl": "."
 	},
 	"exclude": [
-		"node_modules"
+		"node_modules",
+		"lib"
 	]
 }

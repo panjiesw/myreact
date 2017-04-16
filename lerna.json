@@ -1,9 +1,0 @@
-{
-  "lerna": "2.0.0-rc.1",
-  "packages": [
-    "packages/*"
-  ],
-  "version": "1.0.0-alpha.1",
-  "npmClient": "yarn",
-  "hoist": "+(jest|react-test-*|del-cli|typescript|tslint*|babel-*)"
-}
