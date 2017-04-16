@@ -42,8 +42,6 @@ class AuthStore implements IAuthStore {
 	@observable private _lastError: Error | string | null = null;
 
 	constructor(private fb: typeof firebase) {
-		const user = this.fb.auth().currentUser;
-		this.updateUser(user);
 	}
 
 	public login = async (params: ILoginParams): Promise<void> => {
@@ -75,7 +73,7 @@ class AuthStore implements IAuthStore {
 				throw new Error('Invalid provider for login');
 			}
 		} catch (err) {
-			console.error('Failed to login', err);
+			console.warn('Failed to login', err);
 			this.updateError(err);
 		}
 		this.updateLoading(false);

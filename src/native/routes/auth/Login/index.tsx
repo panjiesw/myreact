@@ -8,8 +8,8 @@ import { View } from 'react-native';
 import { RouteComponentProps, withRouter } from 'react-router-native';
 import { inject, observer } from 'mobx-react/native';
 import { Container, Content, Input, Button, Form, Text, Item, Label } from 'native-base';
-import { IAuthStore } from 'myreact/lib/stores/auth';
-import AdaptiveStatusBar from '~/components/AdaptiveStatusBar';
+import { IAuthStore } from 'common/stores/auth';
+import AdaptiveStatusBar from 'native/components/AdaptiveStatusBar';
 import styles from './styles';
 
 export interface ILoginProps extends RouteComponentProps<any> {
@@ -44,9 +44,10 @@ class Login extends Component<ILoginProps, ILoginState> {
 	};
 
 	public render(): JSX.Element | null {
+		console.log('location', this.props.location);
 		const {email, password} = this.state;
 		return (
-			<Container style={styles.container}>
+			<Container style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
 				<AdaptiveStatusBar colorBehindStatusBar="rgb(255,255,255)" />
 				<Content padder contentContainerStyle={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
 					<View style={styles.spacer} />
@@ -92,13 +93,14 @@ class Login extends Component<ILoginProps, ILoginState> {
 		}
 	}
 
-	private handleSubmit = () => {
+	private handleSubmit = async () => {
 		const { email, password } = this.state;
-		const { authStore, fb } = this.props;
-		authStore.login({
+		const { authStore, fb, history, location } = this.props;
+		await authStore.login({
 			provider: fb.auth.EmailAuthProvider.PROVIDER_ID,
 			data: { email, password },
 		});
+		history.replace(location.state.from);
 	}
 }
 

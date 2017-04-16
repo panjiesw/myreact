@@ -5,7 +5,7 @@
 
 import React, { Component, ComponentClass, PropTypes, ReactNode, SFC } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router';
-import { IAuthStore } from '../../stores/auth';
+import { IAuthStore } from 'common/stores/auth';
 
 export interface IProtectedRouteProps extends RouteProps {
 	authStore: IAuthStore;
@@ -29,10 +29,11 @@ class ProtectedRoute extends Component<IProtectedRouteProps, void> {
 	}
 
 	private routeRender = (props: any): ReactNode => {
-		const { authStore, component: Component } = this.props; // tslint:disable-line:variable-name
+		console.log('props', props.location);
+		const { authStore, component: Comp } = this.props; // tslint:disable-line:variable-name
 		if (authStore.isLoggedIn) {
 			return (
-				<Component {...props} />
+				<Comp {...props} />
 			);
 		}
 		return (

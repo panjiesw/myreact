@@ -4,9 +4,11 @@
 	],
 	"plugins": [
 		[
-			"babel-plugin-root-import",
+			"module-resolver",
 			{
-				"rootPathSuffix": "lib"
+				"root": [
+					"./build"
+				]
 			}
 		]
 	]

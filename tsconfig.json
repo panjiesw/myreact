@@ -4,6 +4,7 @@
 		"module": "es6",
 		"moduleResolution": "node",
 		"jsx": "react-native",
+		"allowJs": true,
 		"strictNullChecks": true,
 		"importHelpers": true,
 		"allowSyntheticDefaultImports": true,
@@ -14,11 +15,25 @@
 		"experimentalDecorators": true,
 		"removeComments": true,
 		"rootDir": "src",
-		"outDir": "lib",
-		"baseUrl": "."
+		"outDir": "build",
+		"baseUrl": ".",
+		"paths": {
+			"common/*": [
+				"src/common/*"
+			],
+			"native/*": [
+				"src/native/*"
+			],
+			"web/*": [
+				"src/web/*"
+			]
+		}
 	},
 	"exclude": [
+		"index.android.js",
+		"index.ios.js",
+		"build",
 		"node_modules",
-		"lib"
+		"__tests__"
 	]
 }

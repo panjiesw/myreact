@@ -3,8 +3,8 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import AuthStore, { IAuthStore } from 'myreact/lib/stores/auth';
-import firebase from '../utils/firebase';
+import AuthStore, { IAuthStore } from 'common/stores/auth';
+import firebase from 'native/utils/firebase';
 
 const authStore: IAuthStore = new AuthStore(firebase);
 
