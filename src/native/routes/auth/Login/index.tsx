@@ -44,7 +44,6 @@ class Login extends Component<ILoginProps, ILoginState> {
 	};
 
 	public render(): JSX.Element | null {
-		console.log('location', this.props.location);
 		const {email, password} = this.state;
 		return (
 			<Container style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>

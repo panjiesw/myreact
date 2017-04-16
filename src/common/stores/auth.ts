@@ -23,6 +23,8 @@ export interface IAuthStore {
 	readonly lastError: string | null;
 
 	login(params: ILoginParams): Promise<void>;
+	logout(): Promise<void>;
+	registerAuthStateListener(next: (user: firebase.User | null) => void): () => any;
 }
 
 class AuthStore implements IAuthStore {
@@ -43,6 +45,12 @@ class AuthStore implements IAuthStore {
 
 	constructor(private fb: typeof firebase) {
 	}
+
+	public registerAuthStateListener = (next: (user: firebase.User | null) => void): () => any =>
+		this.fb.auth().onAuthStateChanged((user: firebase.User | null) => {
+			this.updateUser(user);
+			next(user);
+		})
 
 	public login = async (params: ILoginParams): Promise<void> => {
 		this.updateLoading(true);
@@ -77,6 +85,10 @@ class AuthStore implements IAuthStore {
 			this.updateError(err);
 		}
 		this.updateLoading(false);
+	}
+
+	public logout = async (): Promise<void> => {
+		await this.fb.auth().signOut();
 	}
 
 	@action('AuthStore.updateUser')

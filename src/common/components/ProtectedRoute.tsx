@@ -29,7 +29,6 @@ class ProtectedRoute extends Component<IProtectedRouteProps, void> {
 	}
 
 	private routeRender = (props: any): ReactNode => {
-		console.log('props', props.location);
 		const { authStore, component: Comp } = this.props; // tslint:disable-line:variable-name
 		if (authStore.isLoggedIn) {
 			return (
