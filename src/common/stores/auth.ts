@@ -1,7 +1,9 @@
-// Copyright (c) 2017 Panjie Setiawan Wicaksono
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/**
+ * Copyright (c) 2017 Panjie Setiawan Wicaksono <panjie@panjiesw.com>
+ *
+ * This software is released under the MIT License.
+ * https://panjiesw.mit-license.org
+ */
 
 import { action, computed, observable } from 'mobx';
 
@@ -78,6 +80,7 @@ class AuthStore implements IAuthStore {
 			if (user) {
 				this.updateUser(user);
 			} else {
+				//noinspection ExceptionCaughtLocallyJS
 				throw new Error('Invalid provider for login');
 			}
 		} catch (err) {
@@ -94,11 +97,7 @@ class AuthStore implements IAuthStore {
 	@action('AuthStore.updateUser')
 	private updateUser(user: firebase.User | null) {
 		this.user = user;
-		if (user) {
-			this.isLoggedIn = true;
-		} else {
-			this.isLoggedIn = false;
-		}
+		this.isLoggedIn = !!user;
 	}
 
 	@action('AuthStore.updateLoading')

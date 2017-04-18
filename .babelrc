@@ -11,5 +11,10 @@
 				]
 			}
 		]
-	]
+	],
+	"env": {
+		"development": {
+			"sourceMaps": true
+		}
+	}
 }

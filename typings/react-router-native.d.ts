@@ -1,42 +1,48 @@
-// Copyright (c) 2017 Panjie Setiawan Wicaksono
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2017 Panjie Setiawan Wicaksono <panjie@panjiesw.com>
+ *
+ * This software is released under the MIT License.
+ * https://panjiesw.mit-license.org
+ */
 
 declare module 'react-router-native' {
 	import {
-		Prompt,
-		MemoryRouter,
-		Redirect,
-		RouteComponentProps,
-		RouteProps,
-		Route,
-		Router,
-		StaticRouter,
-		Switch,
 		match,
 		matchPath,
+		MemoryRouter,
+		Prompt,
+		Redirect,
+		Route,
+		RouteComponentProps,
+		RouteProps,
+		Router,
+		RouterChildContext,
+		StaticRouter,
+		Switch,
 		withRouter,
-		RouterChildContext
 	} from 'react-router';
 	import * as React from 'react';
 	import * as H from 'history';
 
-	class AndroidBackButton extends React.Component<void, void> { }
-	class DeepLinking extends React.Component<void, void> { }
+	class AndroidBackButton extends React.Component<void, void> {
+	}
+	class DeepLinking extends React.Component<void, void> {
+	}
 
 	interface LinkProps {
 		to: H.LocationDescriptor;
 		replace?: boolean;
 		component?: React.ComponentClass<any> | React.SFC<any>;
 	}
-	class Link extends React.Component<LinkProps, void> { }
+	class Link extends React.Component<LinkProps, void> {
+	}
 
 	interface NativeRouterProps {
 		getUserConfirmation?(): void;
 		keyLength?: number;
 	}
-	class NativeRouter extends React.Component<NativeRouterProps, void> { }
+	class NativeRouter extends React.Component<NativeRouterProps, void> {
+	}
 
 	export {
 		Prompt,
@@ -58,5 +64,5 @@ declare module 'react-router-native' {
 		Link,
 		NativeRouterProps,
 		NativeRouter
-	}
+,	};
 }

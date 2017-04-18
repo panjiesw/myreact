@@ -1,7 +1,9 @@
-// Copyright (c) 2017 Panjie Setiawan Wicaksono
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/**
+ * Copyright (c) 2017 Panjie Setiawan Wicaksono <panjie@panjiesw.com>
+ *
+ * This software is released under the MIT License.
+ * https://panjiesw.mit-license.org
+ */
 
 import React, { Component, PropTypes } from 'react';
 import { RouteComponentProps } from 'react-router-native';
@@ -53,7 +55,7 @@ class Dashboard extends Component<IDashboardProps, void> {
 	private onPress = () => {
 		const { authStore } = this.props;
 		authStore.logout();
-	}
+	};
 }
 
 const dashboard = inject<IDashboardProps>('authStore')(observer<IDashboardProps>(Dashboard));

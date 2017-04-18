@@ -1,7 +1,9 @@
-// Copyright (c) 2017 Panjie Setiawan Wicaksono
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2017 Panjie Setiawan Wicaksono <panjie@panjiesw.com>
+ *
+ * This software is released under the MIT License.
+ * https://panjiesw.mit-license.org
+ */
 
 declare module 'native-base' {
 	import * as React from 'react';
@@ -9,8 +11,8 @@ declare module 'native-base' {
 
 	namespace NativeBase {
 		/**
-         * see Widget Content.js
-         */
+		 * see Widget Content.js
+		 */
 		interface Content {
 			/**
 			 * The theme prop can be applied to any component of NativeBase.
@@ -21,12 +23,29 @@ declare module 'native-base' {
 			contentContainerStyle?: ReactNative.ViewStyle;
 		}
 
-		interface Form { }
+		interface Form {
+		}
 
-		interface Label { }
+		interface Label {
+		}
+
+		interface ToastConfig {
+			text: string;
+			buttonText: string;
+			type: 'danger' | 'success' | 'warning';
+			duration?: number;
+			position?: 'top' | 'bottom' | 'center';
+		}
 	}
 
-	export class Form extends React.Component<NativeBase.Form, void> { }
-	export class Label extends React.Component<NativeBase.Label, void> { }
+	export class Form extends React.Component<NativeBase.Form, void> {
+	}
+
+	export class Label extends React.Component<NativeBase.Label, void> {
+	}
+
+	export class Toast {
+		static show(config: NativeBase.ToastConfig): void
+	}
 
 }

@@ -24,8 +24,8 @@
 	"homepage": "https://github.com/panjiesw/myreact#readme",
 	"license": "MIT",
 	"scripts": {
-		"build": "tsc",
-		"clean": "del lib",
+		"ts": "tsc",
+		"clean": "del build",
 		"start": "node ./node_modules/react-native/local-cli/cli.js start",
 		"test": "jest"
 	},

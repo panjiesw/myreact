@@ -1,7 +1,9 @@
-// Copyright (c) 2017 Panjie Setiawan Wicaksono
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/**
+ * Copyright (c) 2017 Panjie Setiawan Wicaksono <panjie@panjiesw.com>
+ *
+ * This software is released under the MIT License.
+ * https://panjiesw.mit-license.org
+ */
 
 import React, { Component, ComponentClass, PropTypes, ReactNode, SFC } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router';
@@ -22,6 +24,7 @@ class ProtectedRoute extends Component<IProtectedRouteProps, void> {
 	};
 
 	public render(): JSX.Element | null {
+		// noinspection JSUnusedLocalSymbols
 		const { authStore, component, render, ...rest } = this.props;
 		return (
 			<Route {...rest} render={this.routeRender} />
