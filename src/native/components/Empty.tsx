@@ -28,7 +28,7 @@ class Empty extends Component<IEmptyProps, void> {
 		const { authStore, history } = this.props;
 		this.authWatcher = authStore.registerAuthStateListener((user: firebase.User | null) => {
 			if (user === null) {
-				history.replace('/login', { from: '/main' });
+				history.replace('/auth/login', { from: '/main' });
 			} else {
 				history.replace('/main');
 			}
@@ -42,9 +42,10 @@ class Empty extends Component<IEmptyProps, void> {
 	}
 
 	public render(): JSX.Element | null {
+		const { location } = this.props;
 		return (
-			<Base noDrawer title="My React">
-				<Content padder/>
+			<Base noDrawer location={location}>
+				<Content padder />
 			</Base>
 		);
 	}

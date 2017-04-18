@@ -6,15 +6,17 @@
  */
 
 import React, { Component } from 'react';
-// import { View, Text } from 'react-native';
 import { NativeRouter, Route, Switch } from 'react-router-native';
 import { Provider } from 'mobx-react';
+import { useStrict } from 'mobx';
 import ProtectedRoute from './components/NativeProtectedRoute';
-import Login from './routes/auth/Login';
+import Auth from './routes/auth/Auth';
 import Dashboard from './routes/main/Dashboard';
 import Empty from './components/Empty';
 import fb from './utils/firebase';
 import stores from './stores';
+
+useStrict(true);
 
 class App extends Component<any, any> {
 	public render(): JSX.Element | null {
@@ -22,8 +24,8 @@ class App extends Component<any, any> {
 			<Provider {...stores} fb={fb}>
 				<NativeRouter>
 					<Switch>
-						<Route exact strict path="/login" component={Login} />
-						<ProtectedRoute exact strict path="/main" component={Dashboard} />
+						<Route strict path="/auth" component={Auth} />
+						<ProtectedRoute strict path="/main" component={Dashboard} />
 						<Route exact path="/" component={Empty} />
 					</Switch>
 				</NativeRouter>

@@ -35,12 +35,14 @@ class AuthStore implements IAuthStore {
 	@observable public isLoading: boolean = false;
 
 	@computed public get lastError(): string | null {
+		if (this._lastError === null) {
+			return null;
+		}
 		if (typeof this._lastError === 'string') {
 			return this._lastError;
-		} else if (this._lastError instanceof Error) {
+		} else {
 			return this._lastError.message ? this._lastError.message : 'Unknown Error';
 		}
-		return null;
 	}
 
 	@observable private _lastError: Error | string | null = null;
@@ -84,8 +86,22 @@ class AuthStore implements IAuthStore {
 				throw new Error('Invalid provider for login');
 			}
 		} catch (err) {
-			console.warn('Failed to login', err);
-			this.updateError(err);
+			let e: any = err;
+			if (err.code === 'auth/invalid-email'
+				|| err.code === 'auth/user-not-found'
+				|| err.code === 'auth/wrong-password') {
+				e = 'Invalid credential';
+			} else if (err.code === 'auth/user-disabled') {
+				e = 'Account is disabled';
+			} else if (err.code === 'auth/invalid-credential') {
+				e = 'Invalid Provider credential';
+			} else if (err.code === 'auth/operation-not-allowed') {
+				e = 'Provider is not enabled for this app';
+			} else {
+				console.warn('Failed to login', err);
+			}
+			// TODO auth/account-exists-with-different-credential
+			this.updateError(e);
 		}
 		this.updateLoading(false);
 	}

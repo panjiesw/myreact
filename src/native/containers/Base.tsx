@@ -7,56 +7,51 @@
 
 import React, { Component, ComponentClass, PropTypes } from 'react';
 import { Dimensions, NativeModules, StatusBar } from 'react-native';
-import { RouteComponentProps, withRouter } from 'react-router-native';
+import { RouteComponentProps } from 'react-router-native';
+import { Location } from 'history';
 import { Body, Button, Container, Drawer, Header, Icon, Left, Right, Title } from 'native-base';
-import { observer } from 'mobx-react/native';
+import { inject, observer } from 'mobx-react/native';
+import { IGlobalUIStore } from 'native/stores/ui';
 
 const { StatusBarManager } = NativeModules;
 const deviceHeight = Dimensions.get('window').height;
 
 export interface IBaseProps extends RouteComponentProps<any> {
-	title: string;
+	globalUIStore: IGlobalUIStore;
 	noDrawer?: boolean;
 }
 
 export interface IPBaseProps {
-	title: string;
+	location: Location;
+	globalUIStore?: IGlobalUIStore;
 	noDrawer?: boolean;
 }
 
-export interface IBaseState {
-	drawer: boolean;
-}
-
-class BaseContainer extends Component<IBaseProps, IBaseState> {
+class BaseContainer extends Component<IBaseProps, void> {
 	public static displayName = 'BaseRaw';
 	public static propTypes = {
+		globalUIStore: PropTypes.object.isRequired,
 		children: PropTypes.node.isRequired,
 	};
 
-	public state: IBaseState = {
-		drawer: false,
-	};
-
 	public render(): JSX.Element | null {
-		const { children, noDrawer, title } = this.props;
-		const { drawer } = this.state;
+		const { children, noDrawer, globalUIStore } = this.props;
 		return (
-			<Drawer open={drawer} onClose={this.handleDrawer(false)}>
+			<Drawer open={globalUIStore.drawerOpen} onClose={globalUIStore.closeDrawer}>
 				<Container style={{ height: deviceHeight - StatusBarManager.HEIGHT, marginTop: StatusBarManager.HEIGHT }}>
-					<StatusBar translucent backgroundColor="rgba(0, 0, 0, .2)"/>
+					<StatusBar translucent backgroundColor="rgba(0, 0, 0, .2)" />
 					<Header>
 						{
 							noDrawer ? null : (
 								<Left>
-									<Button transparent onPress={this.handleDrawer()}>
-										<Icon name="menu"/>
+									<Button transparent onPress={globalUIStore.openDrawer}>
+										<Icon name="menu" />
 									</Button>
 								</Left>
 							)
 						}
 						<Body>
-							<Title>{title}</Title>
+							<Title>{globalUIStore.title}</Title>
 						</Body>
 						<Right />
 					</Header>
@@ -65,15 +60,9 @@ class BaseContainer extends Component<IBaseProps, IBaseState> {
 			</Drawer>
 		);
 	}
-
-	private handleDrawer = (open = true) => () => {
-		this.setState({
-			drawer: open,
-		});
-	};
 }
 
-const base: ComponentClass<IPBaseProps> = withRouter(observer(BaseContainer));
+const base: ComponentClass<IPBaseProps> = inject('globalUIStore')(observer(BaseContainer));
 base.displayName = 'Base';
 
 export { BaseContainer as BaseRaw };

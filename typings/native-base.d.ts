@@ -29,6 +29,10 @@ declare module 'native-base' {
 		interface Label {
 		}
 
+		interface Input {
+			getRef?(instance: {_root: ReactNative.TextInput}): void;
+		}
+
 		interface ToastConfig {
 			text: string;
 			buttonText: string;
