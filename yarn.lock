@@ -3571,6 +3571,10 @@ react-devtools-core@^2.0.8:
     cross-env "^3.1.4"
     ws "^2.0.3"
 
+react-native-config@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-0.3.1.tgz#981d98eee2c4e467397cd9306f5b6958c501c6e8"
+
 react-native-drawer@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-native-drawer/-/react-native-drawer-2.3.0.tgz#a0369ec80ff0b61c9f152dbdea91fe76c843113a"
@@ -3589,6 +3593,10 @@ react-native-firebase@1.0.0-alpha12:
   dependencies:
     bows "^1.6.0"
     es6-symbol "^3.1.0"
+
+react-native-google-signin@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/react-native-google-signin/-/react-native-google-signin-0.10.0.tgz#cc47d3726165735ee61e3a4a589c2ced888f1a98"
 
 react-native-keyboard-aware-scroll-view@0.2.7:
   version "0.2.7"

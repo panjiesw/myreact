@@ -26,6 +26,7 @@ export default StyleSheet.create<ILoginStyle>({
 		flex: 2,
 		flexDirection: 'column',
 		justifyContent: 'center',
+		alignItems: 'stretch',
 		paddingLeft: 20,
 		paddingRight: 20,
 	},

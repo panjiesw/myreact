@@ -67,9 +67,9 @@ class AuthStore implements IAuthStore {
 			} else if (params.data.token) {
 				const token: string = params.data.token;
 				let credential: firebase.auth.AuthCredential;
-				if (params.provider === this.fb.auth.FacebookAuthProvider.PROVIDER_ID) {
+				if (params.provider.indexOf('facebook') === 0) {
 					credential = this.fb.auth.FacebookAuthProvider.credential(token);
-				} else if (params.provider === this.fb.auth.GoogleAuthProvider.PROVIDER_ID) {
+				} else if (params.provider.indexOf('google') === 0) {
 					credential = this.fb.auth.GoogleAuthProvider.credential(token);
 				} else {
 					credential = this.fb.auth.GithubAuthProvider.credential(token);
@@ -80,6 +80,7 @@ class AuthStore implements IAuthStore {
 			}
 
 			if (user) {
+				console.log('user', user.displayName);
 				this.updateUser(user);
 			} else {
 				//noinspection ExceptionCaughtLocallyJS
@@ -113,7 +114,7 @@ class AuthStore implements IAuthStore {
 	@action('AuthStore.updateUser')
 	private updateUser(user: firebase.User | null) {
 		this.user = user;
-		this.isLoggedIn = !!user;
+		this.isLoggedIn = user !== null;
 	}
 
 	@action('AuthStore.updateLoading')

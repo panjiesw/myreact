@@ -11,17 +11,21 @@ import { RouteComponentProps } from 'react-router-native';
 import { inject, observer } from 'mobx-react/native';
 import { action, observable } from 'mobx';
 import { Button, Text, Toast } from 'native-base';
+import { GoogleSigninButton } from 'react-native-google-signin';
 import { IAuthStore } from 'common/stores/auth';
-import LoginForm from './form';
+import { IGoogleStore } from 'native/stores/google';
+import LoginForm from './Form';
 import styles from './styles';
 
 export interface ILoginProps extends RouteComponentProps<any> {
 	authStore: IAuthStore;
+	googleStore: IGoogleStore;
 	fb: typeof firebase;
 }
 
 export interface IPLoginProps extends RouteComponentProps<any> {
 	authStore?: IAuthStore;
+	googleStore?: IGoogleStore;
 	fb?: typeof firebase;
 }
 
@@ -29,6 +33,7 @@ class Login extends Component<ILoginProps, void> {
 	public static displayName = 'LoginRaw';
 	public static propTypes = {
 		authStore: PropTypes.object.isRequired,
+		googleStore: PropTypes.object.isRequired,
 		fb: PropTypes.object.isRequired,
 	};
 
@@ -41,7 +46,7 @@ class Login extends Component<ILoginProps, void> {
 	};
 
 	public render(): JSX.Element | null {
-		const { authStore } = this.props;
+		const { authStore, googleStore } = this.props;
 		return (
 			<View style={styles.box}>
 				<Text style={{ textAlign: 'center' }}>Login to Start</Text>
@@ -57,6 +62,17 @@ class Login extends Component<ILoginProps, void> {
 						<Text style={{ textDecorationLine: 'underline' }}>Sign Up</Text>
 					</Button>
 				</View>
+				{
+					googleStore.isEnabled ? (
+						<View style={{ flexDirection: 'row', height: 52 }}>
+							<GoogleSigninButton
+								style={{ flex: 1 }}
+								size={GoogleSigninButton.Size.Wide}
+								color={GoogleSigninButton.Color.Auto}
+								onPress={this.handleGoogle} />
+						</View>
+					) : null
+				}
 			</View>
 		);
 	}
@@ -78,6 +94,33 @@ class Login extends Component<ILoginProps, void> {
 		}
 	}
 
+	private handleGoogle = async () => {
+		const { googleStore, authStore, history, location } = this.props;
+		try {
+			const user = await googleStore.signIn();
+			await authStore.login({
+				provider: 'google',
+				data: { token: user.idToken },
+			});
+			// TODO error
+			history.replace(location.state.from);
+		} catch (err) {
+			if (err.code === 12501) {
+				console.warn('cancelled');
+			} else if (err.code === 12500) {
+				console.error('Google signin failed', err);
+			} else if (err.code === 7) {
+				console.warn('Network error');
+			} else if (err.code === 5) {
+				console.warn('Invalid account');
+			} else if (err.code === 8) {
+				console.warn('Internal error');
+			} else {
+				console.error('Unknown Google error', err);
+			}
+		}
+	}
+
 	private handleSubmit = () => {
 		const { valid } = this.values;
 		this.setDirty('email');
@@ -95,10 +138,10 @@ class Login extends Component<ILoginProps, void> {
 	}
 
 	private doSubmit = async () => {
-		const { authStore, fb, history, location } = this.props;
+		const { authStore, history, location } = this.props;
 		const { email, password } = this.values;
 		await authStore.login({
-			provider: fb.auth.EmailAuthProvider.PROVIDER_ID,
+			provider: 'password',
 			data: { email, password },
 		});
 
@@ -115,7 +158,7 @@ class Login extends Component<ILoginProps, void> {
 	}
 }
 
-const login = inject<IPLoginProps>('authStore', 'fb')(observer<IPLoginProps>(Login));
+const login = inject<IPLoginProps>('authStore', 'googleStore', 'fb')(observer<IPLoginProps>(Login));
 login.displayName = 'Login';
 
 export { Login as LoginRaw };

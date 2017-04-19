@@ -52,4 +52,7 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 
+Pods/
+
 google-services.json
+.env

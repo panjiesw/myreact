@@ -40,11 +40,11 @@ class Dashboard extends Component<IDashboardProps, void> {
 	}
 
 	public render(): JSX.Element | null {
-		const { location } = this.props;
+		const { authStore, location } = this.props;
 		return (
 			<Base location={location}>
 				<Content padder>
-					<Text>Dashboard</Text>
+					<Text>{authStore.user ? `Hello, ${authStore.user.displayName}` : 'Hello'}</Text>
 					<Button onPress={this.onPress}>
 						<Text>Logout</Text>
 					</Button>

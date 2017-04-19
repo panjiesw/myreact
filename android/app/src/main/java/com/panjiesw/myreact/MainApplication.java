@@ -1,14 +1,16 @@
-/**
- *Copyright (c) 2017 Panjie Setiawan Wicaksono <panjie@panjiesw.com>
+/*
+ * Copyright (c) 2017 Panjie Setiawan Wicaksono (panjie@panjiesw.com)
  *
- *This software is released under the MIT License.
- *https://panjiesw.mit-license.org
+ * This software is released under the MIT License.
+ * https://panjiesw.mit-license.org
  */
 
 package com.panjiesw.myreact;
 
 import android.app.Application;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.facebook.react.ReactApplication;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -32,7 +34,9 @@ public class MainApplication extends Application implements ReactApplication {
 			return Arrays.asList(
 				new MainReactPackage(),
 				new VectorIconsPackage(),
-				new RNFirebasePackage()
+				new ReactNativeConfigPackage(),
+				new RNFirebasePackage(),
+				new RNGoogleSigninPackage()
 			);
 		}
 	};
