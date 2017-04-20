@@ -80,7 +80,6 @@ class AuthStore implements IAuthStore {
 			}
 
 			if (user) {
-				console.log('user', user.displayName);
 				this.updateUser(user);
 			} else {
 				//noinspection ExceptionCaughtLocallyJS
