@@ -5,6 +5,8 @@
  * https://panjiesw.mit-license.org
  */
 
-export { default as FacebookLogin } from './Facebook';
-export { default as GoogleLogin } from './Google';
-export { default as FormLogin } from './FormLogin';
+export function parseError(err: any): string {
+	return err.message ?
+		err.message : typeof err === 'string' ?
+			err : `Unknown Error ${err}`;
+}

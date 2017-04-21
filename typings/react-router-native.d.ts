@@ -24,7 +24,7 @@ declare module 'react-router-native' {
 	import * as React from 'react';
 	import * as H from 'history';
 
-	class AndroidBackButton extends React.Component<void, void> {
+	class AndroidBackButton extends React.Component<any, void> {
 	}
 	class DeepLinking extends React.Component<void, void> {
 	}

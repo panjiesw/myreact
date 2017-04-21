@@ -24,8 +24,9 @@ export interface IAuthStore {
 	readonly isLoading: boolean;
 	readonly lastError: string | null;
 
-	login(params: ILoginParams): Promise<void>;
-	logout(): Promise<void>;
+	signIn(params: ILoginParams): Promise<void>;
+	signUp(email: string, password: string): Promise<void>;
+	signOut(): Promise<void>;
 	registerAuthStateListener(next: (user: firebase.User | null) => void): () => any;
 }
 
@@ -52,15 +53,15 @@ class AuthStore implements IAuthStore {
 
 	public registerAuthStateListener = (next: (user: firebase.User | null) => void): () => any =>
 		this.fb.auth().onAuthStateChanged((user: firebase.User | null) => {
-			this.updateUser(user);
+			this.setUser(user);
 			next(user);
 		})
 
-	public login = async (params: ILoginParams): Promise<void> => {
-		this.updateLoading(true);
+	public signIn = async (params: ILoginParams): Promise<void> => {
+		this.setLoading(true);
 		try {
 			let user: firebase.User | undefined;
-			if (params.provider === this.fb.auth.EmailAuthProvider.PROVIDER_ID
+			if (params.provider === 'password'
 				&& params.data.email
 				&& params.data.password) {
 				user = await this.fb.auth().signInWithEmailAndPassword(params.data.email, params.data.password);
@@ -80,7 +81,7 @@ class AuthStore implements IAuthStore {
 			}
 
 			if (user) {
-				this.updateUser(user);
+				this.setUser(user);
 			} else {
 				//noinspection ExceptionCaughtLocallyJS
 				throw new Error('Invalid provider for login');
@@ -101,28 +102,44 @@ class AuthStore implements IAuthStore {
 				console.warn('Failed to login', err);
 			}
 			// TODO auth/account-exists-with-different-credential
-			this.updateError(e);
+			this.setError(e);
 		}
-		this.updateLoading(false);
+		this.setLoading(false);
 	}
 
-	public logout = async (): Promise<void> => {
+	public signUp = async (email: string, password: string): Promise<void> => {
+		this.setLoading();
+		let user: firebase.User | undefined;
+		try {
+			user = await this.fb.auth().createUserWithEmailAndPassword(email, password);
+			if (!user) {
+				throw new Error('Invalid sign up state');
+			}
+			this.setUser(user);
+		} catch (err) {
+			console.warn(err);
+			this.setError(err);
+		}
+		this.setLoading(false);
+	}
+
+	public signOut = async (): Promise<void> => {
 		await this.fb.auth().signOut();
 	}
 
 	@action('AuthStore.updateUser')
-	private updateUser(user: firebase.User | null) {
+	private setUser(user: firebase.User | null) {
 		this.user = user;
 		this.isLoggedIn = user !== null;
 	}
 
 	@action('AuthStore.updateLoading')
-	private updateLoading(loading = false) {
+	private setLoading(loading = true) {
 		this.isLoading = loading;
 	}
 
 	@action('AuthStore.updateError')
-	private updateError(err: Error | string | null) {
+	private setError(err: Error | string | null) {
 		this._lastError = err;
 	}
 }

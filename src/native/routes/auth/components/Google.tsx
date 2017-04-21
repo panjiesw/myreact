@@ -6,55 +6,58 @@
  */
 
 import React, { Component, PropTypes } from 'react';
+import { TextStyle, ViewStyle } from 'react-native';
 import { Button, Icon, Text } from 'native-base';
 import { observer } from 'mobx-react/native';
 import { History, Location } from 'history';
-import { IAuthStore } from 'common/stores/auth';
-import { IGoogleStore } from 'native/stores/google';
+import { parseError } from 'common/utils/errors';
+import { IOAuthStore } from 'native/stores/oauth';
 
-export interface IGoogleLoginProps {
+export interface IGoogleSigninProps {
 	enabled?: boolean;
-	authStore: IAuthStore;
-	googleStore: IGoogleStore;
+	disabled?: boolean;
+	style?: ViewStyle;
+	textStyle?: TextStyle;
+	iconStyle?: TextStyle;
+	oauthStore: IOAuthStore;
 	history: History;
 	location: Location;
 	showToast(text: string, buttonText: string, type: 'success' | 'danger' | 'warning'): void;
 }
 
 // rgb(219, 64, 44)
-class GoogleLogin extends Component<IGoogleLoginProps, void> {
-	public static displayName = 'GoogleLoginRaw';
+class GoogleSignin extends Component<IGoogleSigninProps, void> {
+	public static displayName = 'GoogleSigninRaw';
 	public static propTypes = {
-		authStore: PropTypes.object.isRequired,
-		googleStore: PropTypes.object.isRequired,
+		oauthStore: PropTypes.object.isRequired,
 		history: PropTypes.object.isRequired,
 		location: PropTypes.object.isRequired,
 		showToast: PropTypes.func.isRequired,
 	};
 
 	public render(): JSX.Element | null {
-		const { enabled } = this.props;
+		const {
+			enabled,
+			iconStyle,
+			style,
+			textStyle,
+		} = this.props;
 		return enabled ? (
 			<Button
 				iconLeft
 				block
-				style={{ justifyContent: 'flex-start', backgroundColor: 'rgb(219, 64, 44)', borderRadius: 5 }}
-				onPress={this.handleGoogle}>
-				<Icon style={{ borderRightColor: 'white', borderRightWidth: 0.5, paddingRight: 9 }} name="logo-googleplus" />
-				<Text style={{textAlign: 'center', flex: 1}}>Sign in with Google</Text>
+				style={style}
+				onPress={this.handleOnPress}>
+				<Icon style={iconStyle} name="logo-googleplus" />
+				<Text style={textStyle}>Sign in with Google</Text>
 			</Button>
 		) : null;
 	}
 
-	private handleGoogle = async () => {
-		const { googleStore, authStore, history, location, showToast } = this.props;
+	private handleOnPress = async () => {
+		const { oauthStore, history, location, showToast } = this.props;
 		try {
-			const user = await googleStore.signIn();
-			await authStore.login({
-				provider: 'google',
-				data: { token: user.idToken },
-			});
-			// TODO error
+			await oauthStore.signInGoogle();
 			history.replace(location.state.from);
 		} catch (err) {
 			if (err.code === 12501) {
@@ -68,15 +71,12 @@ class GoogleLogin extends Component<IGoogleLoginProps, void> {
 			} else if (err.code === 8) {
 				showToast('Internal error. Please try again later', 'Dismiss', 'warning');
 			} else {
-				showToast(`Unknown error. ${
-					err.message ?
-						err.message : typeof err === 'string' ?
-							err : ''}`, 'Dismiss', 'danger');
+				showToast(parseError(err), 'Dismiss', 'danger');
 			}
 		}
 	}
 }
 
-export { GoogleLogin as GoogleLoginRaw };
+export { GoogleSignin as GoogleSigninRaw };
 
-export default observer(GoogleLogin);
+export default observer(GoogleSignin);

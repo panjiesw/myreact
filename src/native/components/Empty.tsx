@@ -10,19 +10,19 @@ import { RouteComponentProps } from 'react-router-native';
 import { inject, observer } from 'mobx-react';
 import { Content } from 'native-base';
 import { IAuthStore } from 'common/stores/auth';
-import { IGoogleStore } from 'native/stores/google';
+import { IOAuthStore } from 'native/stores/oauth';
 import Base from 'native/containers/Base';
 
 export interface IEmptyProps extends RouteComponentProps<any> {
 	authStore: IAuthStore;
-	googleStore: IGoogleStore;
+	oauthStore: IOAuthStore;
 }
 
 class Empty extends Component<IEmptyProps, void> {
 	public static displayName = 'EmptyRaw';
 	public static propTypes = {
 		authStore: PropTypes.object.isRequired,
-		googleStore: PropTypes.object.isRequired,
+		oauthStore: PropTypes.object.isRequired,
 	};
 
 	private authWatcher: () => any;
@@ -48,19 +48,19 @@ class Empty extends Component<IEmptyProps, void> {
 	}
 
 	private onInitialized = async (user: firebase.User | null) => {
-		const { googleStore, history } = this.props;
-		if (!googleStore.isInitialized) {
-			await googleStore.initialize();
+		const { oauthStore, history } = this.props;
+		if (!oauthStore.isInitialized) {
+			await oauthStore.initialize();
 		}
 		if (user === null) {
-			history.replace('/auth/login', { from: '/main' });
+			history.replace('/auth/signin', { from: '/main' });
 		} else {
 			history.replace('/main');
 		}
 	}
 }
 
-const empty = inject<IEmptyProps>('authStore', 'googleStore')(observer<IEmptyProps>(Empty));
+const empty = inject<IEmptyProps>('authStore', 'oauthStore')(observer<IEmptyProps>(Empty));
 empty.displayName = 'Empty';
 
 export { Empty as EmptyRaw };

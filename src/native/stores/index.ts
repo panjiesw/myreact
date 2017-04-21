@@ -8,14 +8,14 @@
 import AuthStore, { IAuthStore } from 'common/stores/auth';
 import firebase from 'native/utils/firebase';
 import GlobalUIStore, {IGlobalUIStore} from './ui';
-import GoogleStore, {IGoogleStore} from './google';
+import OAuthStore, {IOAuthStore} from './oauth';
 
-const googleStore: IGoogleStore = new GoogleStore();
 const authStore: IAuthStore = new AuthStore(firebase);
+const oauthStore: IOAuthStore = new OAuthStore(authStore);
 const globalUIStore: IGlobalUIStore = new GlobalUIStore();
 
 export default {
 	authStore,
+	oauthStore,
 	globalUIStore,
-	googleStore,
 };

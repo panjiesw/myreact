@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from 'react';
-import { NativeRouter, Route, Switch } from 'react-router-native';
+import { AndroidBackButton, NativeRouter, Route, Switch } from 'react-router-native';
 import { Provider } from 'mobx-react';
 import { useStrict } from 'mobx';
 import ProtectedRoute from './components/NativeProtectedRoute';
@@ -23,11 +23,13 @@ class App extends Component<any, any> {
 		return (
 			<Provider {...stores} fb={fb}>
 				<NativeRouter>
-					<Switch>
-						<Route strict path="/auth" component={Auth} />
-						<ProtectedRoute strict path="/main" component={Dashboard} />
-						<Route exact path="/" component={Empty} />
-					</Switch>
+					<AndroidBackButton>
+						<Switch>
+							<Route strict path="/auth" component={Auth} />
+							<ProtectedRoute strict path="/main" component={Dashboard} />
+							<Route exact path="/" component={Empty} />
+						</Switch>
+					</AndroidBackButton>
 				</NativeRouter>
 			</Provider>
 		);

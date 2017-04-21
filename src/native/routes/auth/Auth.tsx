@@ -6,13 +6,17 @@
  */
 
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { Dimensions, NativeModules, View } from 'react-native';
 import { Route, RouteComponentProps } from 'react-router-native';
 import { Container, Content } from 'native-base';
 import { observer } from 'mobx-react/native';
 import AdaptiveStatusBar from 'native/components/AdaptiveStatusBar';
-import Login from './Login';
+import Signin from './Signin';
+import Signup from './Signup';
 import styles from './styles';
+
+const { StatusBarManager } = NativeModules;
+const deviceHeight = Dimensions.get('window').height;
 
 class Auth extends Component<RouteComponentProps<any>, void> {
 	public static displayName = 'AuthRaw';
@@ -20,11 +24,17 @@ class Auth extends Component<RouteComponentProps<any>, void> {
 	public render(): JSX.Element | null {
 		const { match } = this.props;
 		return (
-			<Container style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
+			<Container
+				style={{
+					flex: 1,
+					flexDirection: 'column',
+					justifyContent: 'center', height: deviceHeight - StatusBarManager.HEIGHT, marginTop: StatusBarManager.HEIGHT,
+				}}>
 				<AdaptiveStatusBar colorBehindStatusBar="rgb(255,255,255)" />
-				<Content padder contentContainerStyle={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
+				<Content contentContainerStyle={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
 					<View style={styles.spacer} />
-					<Route exact strict path={`${match.url}/login`} component={Login} />
+					<Route exact strict path={`${match.url}/signin`} component={Signin} />
+					<Route exact strict path={`${match.url}/signup`} component={Signup} />
 					<View style={styles.spacer} />
 				</Content>
 			</Container>

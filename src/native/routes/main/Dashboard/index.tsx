@@ -28,7 +28,7 @@ class Dashboard extends Component<IDashboardProps, void> {
 		const { authStore, history, location } = this.props;
 		this.authWatcher = authStore.registerAuthStateListener((user: firebase.User | null) => {
 			if (user === null) {
-				history.replace('/auth/login', { from: location });
+				history.replace('/auth/signin', { from: location });
 			}
 		});
 	}
@@ -55,7 +55,7 @@ class Dashboard extends Component<IDashboardProps, void> {
 
 	private onPress = () => {
 		const { authStore } = this.props;
-		authStore.logout();
+		authStore.signOut();
 	}
 }
 
