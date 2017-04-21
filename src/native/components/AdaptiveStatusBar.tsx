@@ -9,6 +9,9 @@ import React, { PropTypes, SFC } from 'react';
 import { StatusBar, View } from 'react-native';
 import tinycolor from 'tinycolor2';
 
+// tslint:disable-next-line:variable-name
+const SBar: any = StatusBar;
+
 export interface IAdaptiveStatusBarProps {
 	colorBehindStatusBar: string;
 }
@@ -17,8 +20,8 @@ const adaptiveStatusBar: SFC<IAdaptiveStatusBarProps> = ({ colorBehindStatusBar 
 	return (
 		<View>
 			{tinycolor(colorBehindStatusBar).isLight() ?
-				<StatusBar translucent barStyle="default" backgroundColor="rgba(0,0,0,.05)"/> :
-				<StatusBar translucent barStyle="light-content" backgroundColor="rgba(0,0,0,.20)"/>
+				<SBar translucent barStyle="dark-content" backgroundColor={colorBehindStatusBar}/> :
+				<SBar translucent barStyle="light-content" backgroundColor={colorBehindStatusBar}/>
 			}
 		</View>
 	);

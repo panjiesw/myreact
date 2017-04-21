@@ -36,7 +36,7 @@ class Signup extends Component<ISignupProps, void> {
 		const { authStore, oauthStore, history, location } = this.props;
 		return (
 			<View style={styles.box}>
-				<Text style={{ textAlign: 'center' }}>Sign in to Start</Text>
+				<Text style={{ textAlign: 'center', color: 'white' }}>Sign in to Start</Text>
 				<EmailSignin
 					signup
 					authStore={authStore}

@@ -27,6 +27,7 @@ declare module 'native-base' {
 		}
 
 		interface Label {
+			style?: ReactNative.TextStyle;
 		}
 
 		interface Input {
@@ -36,6 +37,10 @@ declare module 'native-base' {
 		interface Icon {
 			android?: string;
 			ios?: string;
+		}
+
+		interface Button {
+			light?: boolean;
 		}
 
 		interface ToastConfig {

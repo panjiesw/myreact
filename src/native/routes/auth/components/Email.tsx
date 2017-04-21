@@ -47,8 +47,9 @@ export const FormBlock: SFC<IFormBlockProps> =
 	({ authStore, pref, prefC, inputHandler, onEmailSubmit, onPasswordSubmit, values, signup }) => (
 		<Form>
 			<Item floatingLabel error={!values.emailValid}>
-				<Label>Email</Label>
+				<Label style={{ color: 'white' }}>Email</Label>
 				<Input
+					style={{ color: 'white' }}
 					keyboardType="email-address"
 					returnKeyType="next"
 					onSubmitEditing={onEmailSubmit}
@@ -56,9 +57,10 @@ export const FormBlock: SFC<IFormBlockProps> =
 					onChangeText={inputHandler('email')}
 					editable={!authStore.isLoading} />
 			</Item>
-			<Item floatingLabel last={!signup} error={!values.passwordValid}>
-				<Label>Password</Label>
+			<Item floatingLabel error={!values.passwordValid}>
+				<Label style={{ color: 'white' }}>Password</Label>
 				<Input
+					style={{color: 'white'}}
 					secureTextEntry
 					returnKeyType={signup ? 'next' : 'go'}
 					getRef={pref}
@@ -69,9 +71,10 @@ export const FormBlock: SFC<IFormBlockProps> =
 			</Item>
 			{
 				signup ? (
-					<Item floatingLabel last error={!values.passwordValid}>
-						<Label>Confirm Password</Label>
+					<Item floatingLabel error={!values.passwordValid}>
+						<Label style={{ color: 'white' }}>Confirm Password</Label>
 						<Input
+							style={{color: 'white'}}
 							secureTextEntry
 							returnKeyType="go"
 							getRef={prefC}
@@ -146,7 +149,7 @@ class EmailSignin extends Component<IEmailSigninProps, void> {
 					onPasswordSubmit={this.handlePasswordSubmit} />
 				<Button
 					iconLeft
-					info
+					light
 					block
 					style={{ justifyContent: 'flex-start', marginTop: 20, borderRadius: 5 }}
 					onPress={this.handleSubmit}
@@ -160,13 +163,13 @@ class EmailSignin extends Component<IEmailSigninProps, void> {
 					signup ? null : (
 						<View style={{ flexDirection: 'row', marginTop: 10 }}>
 							<Button transparent style={{ flex: 1, paddingLeft: 5 }}>
-								<Text style={{ textDecorationLine: 'underline' }}>Forgot Password?</Text>
+								<Text style={{ textDecorationLine: 'underline', color: 'white' }}>Forgot Password?</Text>
 							</Button>
 							<Button
 								transparent
 								onPress={this.handleSignup}
 								style={{ flex: 1, paddingRight: 5, justifyContent: 'flex-end' }}>
-								<Text style={{ textDecorationLine: 'underline' }}>Sign Up</Text>
+								<Text style={{ textDecorationLine: 'underline', color: 'white' }}>Sign Up</Text>
 							</Button>
 						</View>
 					)
