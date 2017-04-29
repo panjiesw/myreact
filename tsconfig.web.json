@@ -1,0 +1,27 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"target": "es5",
+		"lib": [
+			"dom",
+			"es6"
+		],
+		"jsx": "react",
+		"sourceMap": true,
+		"declaration": false,
+		"skipLibCheck": false,
+		"rootDir": "."
+	},
+	"exclude": [
+		"index.android.js",
+		"index.ios.js",
+		"build",
+		"dist",
+		"src/native",
+		"node_modules",
+		"__tests__"
+	],
+	"awesomeTypescriptLoaderOptions": {
+		"useCache": true
+	}
+}

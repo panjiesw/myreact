@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import { AndroidBackButton, NativeRouter, Route, Switch } from 'react-router-native';
-import { Provider } from 'mobx-react';
+import { Provider } from 'mobx-react/native';
 import { useStrict } from 'mobx';
 import ProtectedRoute from './components/NativeProtectedRoute';
 import Auth from './routes/auth/Auth';

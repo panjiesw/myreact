@@ -56,3 +56,5 @@ Pods/
 
 google-services.json
 .env
+dist/
+.awcache

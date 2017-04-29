@@ -7,7 +7,7 @@
 
 import { ObservableMap } from 'mobx';
 
-declare class MR {}
+declare class MR { }
 
 declare namespace MR {
 	type FirebaseUser = firebase.User | null;

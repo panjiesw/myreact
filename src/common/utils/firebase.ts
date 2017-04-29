@@ -6,7 +6,9 @@
  */
 
 export interface IFirebaseAuthProvider<T extends firebase.auth.AuthProvider> {
-	provider: T;
+	provider: {
+		new (): T;
+	};
 	id: string;
 	credential: (token: string) => firebase.auth.AuthCredential;
 }
@@ -17,5 +19,11 @@ export interface IFirebaseWrapper {
 	facebook: IFirebaseAuthProvider<firebase.auth.FacebookAuthProvider>;
 	google: IFirebaseAuthProvider<firebase.auth.GoogleAuthProvider>;
 	github: IFirebaseAuthProvider<firebase.auth.GithubAuthProvider>;
-	email: IFirebaseAuthProvider<firebase.auth.EmailAuthProvider>;
+	email: {
+		provider: {
+			new (): firebase.auth.EmailAuthProvider;
+		};
+		id: string;
+		credential: (email: string, password: string) => firebase.auth.AuthCredential;
+	};
 }

@@ -4,11 +4,10 @@
 		"module": "es6",
 		"moduleResolution": "node",
 		"jsx": "react-native",
+		"strict": true,
 		"declaration": true,
-		"strictNullChecks": true,
 		"importHelpers": true,
 		"allowSyntheticDefaultImports": true,
-		"noImplicitAny": true,
 		"noImplicitReturns": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
@@ -27,12 +26,24 @@
 			"web/*": [
 				"src/web/*"
 			]
-		}
+		},
+		"types": [
+			"history",
+			"prop-types",
+			"react",
+			"react-dom",
+			"react-hot-loader",
+			"react-native",
+			"react-router",
+			"react-router-dom",
+			"tinycolor2"
+		]
 	},
 	"exclude": [
 		"index.android.js",
 		"index.ios.js",
 		"build",
+		"dist",
 		"node_modules",
 		"__tests__"
 	]
