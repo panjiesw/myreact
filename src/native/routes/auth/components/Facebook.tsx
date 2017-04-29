@@ -5,7 +5,8 @@
  * https://panjiesw.mit-license.org
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import * as propTypes from 'prop-types';
 import { TextStyle, ViewStyle } from 'react-native';
 import { Button, Icon, Text } from 'native-base';
 import { observer } from 'mobx-react/native';
@@ -29,9 +30,9 @@ export interface IFacebookSigninProps {
 class FacebookSignin extends Component<IFacebookSigninProps, void> {
 	public static displayName = 'FacebookSigninRaw';
 	public static propTypes = {
-		history: PropTypes.object.isRequired,
-		location: PropTypes.object.isRequired,
-		showToast: PropTypes.func.isRequired,
+		history:  propTypes.object.isRequired,
+		location:  propTypes.object.isRequired,
+		showToast:  propTypes.func.isRequired,
 	};
 
 	public render(): JSX.Element | null {

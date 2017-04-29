@@ -5,7 +5,8 @@
  * https://panjiesw.mit-license.org
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import * as propTypes from 'prop-types';
 import { RouteComponentProps } from 'react-router-native';
 import { inject, observer } from 'mobx-react';
 import { Content } from 'native-base';
@@ -21,8 +22,8 @@ export interface IEmptyProps extends RouteComponentProps<any> {
 class Empty extends Component<IEmptyProps, void> {
 	public static displayName = 'EmptyRaw';
 	public static propTypes = {
-		authStore: PropTypes.object.isRequired,
-		oauthStore: PropTypes.object.isRequired,
+		authStore:  propTypes.object.isRequired,
+		oauthStore:  propTypes.object.isRequired,
 	};
 
 	private authWatcher: () => any;

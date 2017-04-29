@@ -5,7 +5,8 @@
  * https://panjiesw.mit-license.org
  */
 
-import React, { PropTypes, SFC } from 'react';
+import React, { SFC } from 'react';
+import * as propTypes from 'prop-types';
 import { StatusBar, View } from 'react-native';
 import tinycolor from 'tinycolor2';
 
@@ -27,7 +28,7 @@ const adaptiveStatusBar: SFC<IAdaptiveStatusBarProps> = ({ colorBehindStatusBar 
 	);
 };
 adaptiveStatusBar.propTypes = {
-	colorBehindStatusBar: PropTypes.string.isRequired,
+	colorBehindStatusBar:  propTypes.string.isRequired,
 };
 adaptiveStatusBar.displayName = 'AdaptiveStatusBar';
 

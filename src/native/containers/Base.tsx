@@ -5,7 +5,8 @@
  * https://panjiesw.mit-license.org
  */
 
-import React, { Component, ComponentClass, PropTypes } from 'react';
+import React, { Component, ComponentClass } from 'react';
+import * as propTypes from 'prop-types';
 import { Dimensions, NativeModules, StatusBar } from 'react-native';
 import { RouteComponentProps } from 'react-router-native';
 import { Location } from 'history';
@@ -30,8 +31,8 @@ export interface IPBaseProps {
 class BaseContainer extends Component<IBaseProps, void> {
 	public static displayName = 'BaseRaw';
 	public static propTypes = {
-		globalUIStore: PropTypes.object.isRequired,
-		children: PropTypes.node.isRequired,
+		globalUIStore:  propTypes.object.isRequired,
+		children:  propTypes.node.isRequired,
 	};
 
 	public render(): JSX.Element | null {

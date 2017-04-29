@@ -5,7 +5,8 @@
  * https://panjiesw.mit-license.org
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import * as propTypes from 'prop-types';
 import { TextStyle, ViewStyle } from 'react-native';
 import { Button, Icon, Text } from 'native-base';
 import { observer } from 'mobx-react/native';
@@ -29,10 +30,10 @@ export interface IGoogleSigninProps {
 class GoogleSignin extends Component<IGoogleSigninProps, void> {
 	public static displayName = 'GoogleSigninRaw';
 	public static propTypes = {
-		oauthStore: PropTypes.object.isRequired,
-		history: PropTypes.object.isRequired,
-		location: PropTypes.object.isRequired,
-		showToast: PropTypes.func.isRequired,
+		oauthStore:  propTypes.object.isRequired,
+		history:  propTypes.object.isRequired,
+		location:  propTypes.object.isRequired,
+		showToast:  propTypes.func.isRequired,
 	};
 
 	public render(): JSX.Element | null {

@@ -14,7 +14,7 @@ declare module 'react-native-firebase' {
 	}
 
 	export interface IRNFirebase {
-		initializeApp: (options: IRNFirebaseOptions) => typeof firebase
+		initializeApp: (options: IRNFirebaseOptions) => any;
 	}
 
 	const cs: IRNFirebase;

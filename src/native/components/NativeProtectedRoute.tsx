@@ -9,7 +9,7 @@ import { inject, observer } from 'mobx-react/native';
 import { IPProtectedRouteProps, IProtectedRouteProps, ProtectedRouteRaw } from 'common/components/ProtectedRoute';
 // import { mInjectedObserver } from 'common/utils/mobx';
 
-const protectedRoute = inject<IPProtectedRouteProps>('authStore', 'fb')(
+const protectedRoute = inject<IPProtectedRouteProps>('authStore')(
 	observer<IPProtectedRouteProps>(ProtectedRouteRaw));
 protectedRoute.displayName = 'ProtectedNativeRoute';
 

@@ -5,7 +5,8 @@
  * https://panjiesw.mit-license.org
  */
 
-import React, { Component, ComponentClass, PropTypes, ReactNode, SFC } from 'react';
+import React, { Component, ComponentClass, ReactNode, SFC } from 'react';
+import * as propTypes from 'prop-types';
 import { Redirect, Route, RouteProps } from 'react-router';
 import { IAuthStore } from 'common/stores/auth';
 
@@ -20,7 +21,7 @@ export interface IPProtectedRouteProps extends RouteProps {
 
 class ProtectedRoute extends Component<IProtectedRouteProps, void> {
 	public static propTypes = {
-		authStore: PropTypes.any.isRequired,
+		authStore: propTypes.any.isRequired,
 	};
 
 	public render(): JSX.Element | null {

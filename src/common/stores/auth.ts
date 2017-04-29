@@ -6,6 +6,7 @@
  */
 
 import { action, computed, observable } from 'mobx';
+import { IFirebaseWrapper } from 'common/utils/firebase';
 
 export interface IProviderData {
 	email?: string;
@@ -19,7 +20,7 @@ export interface ILoginParams {
 }
 
 export interface IAuthStore {
-	readonly user: firebase.User | null;
+	readonly user: MR.FirebaseUser;
 	readonly isLoggedIn: boolean;
 	readonly isLoading: boolean;
 	readonly lastError: string | null;
@@ -27,11 +28,11 @@ export interface IAuthStore {
 	signIn(params: ILoginParams): Promise<void>;
 	signUp(email: string, password: string): Promise<void>;
 	signOut(): Promise<void>;
-	registerAuthStateListener(next: (user: firebase.User | null) => void): () => any;
+	registerAuthStateListener(next: (user: MR.FirebaseUser) => void): () => any;
 }
 
 class AuthStore implements IAuthStore {
-	@observable public user: firebase.User | null = null;
+	@observable public user: MR.FirebaseUser = null;
 	@observable public isLoggedIn: boolean = false;
 	@observable public isLoading: boolean = false;
 
@@ -48,11 +49,11 @@ class AuthStore implements IAuthStore {
 
 	@observable private _lastError: Error | string | null = null;
 
-	constructor(private fb: typeof firebase) {
+	constructor(private wrapper: IFirebaseWrapper) {
 	}
 
-	public registerAuthStateListener = (next: (user: firebase.User | null) => void): () => any =>
-		this.fb.auth().onAuthStateChanged((user: firebase.User | null) => {
+	public registerAuthStateListener = (next: (user: MR.FirebaseUser) => void): () => any =>
+		this.wrapper.app.auth().onAuthStateChanged((user: MR.FirebaseUser) => {
 			this.setUser(user);
 			next(user);
 		})
@@ -64,18 +65,18 @@ class AuthStore implements IAuthStore {
 			if (params.provider === 'password'
 				&& params.data.email
 				&& params.data.password) {
-				user = await this.fb.auth().signInWithEmailAndPassword(params.data.email, params.data.password);
+				user = await this.wrapper.app.auth().signInWithEmailAndPassword(params.data.email, params.data.password);
 			} else if (params.data.token) {
 				const token: string = params.data.token;
 				let credential: firebase.auth.AuthCredential;
 				if (params.provider.indexOf('facebook') === 0) {
-					credential = this.fb.auth.FacebookAuthProvider.credential(token);
+					credential = this.wrapper.facebook.credential(token);
 				} else if (params.provider.indexOf('google') === 0) {
-					credential = this.fb.auth.GoogleAuthProvider.credential(token);
+					credential = this.wrapper.google.credential(token);
 				} else {
-					credential = this.fb.auth.GithubAuthProvider.credential(token);
+					credential = this.wrapper.github.credential(token);
 				}
-				user = await this.fb.auth().signInWithCredential(credential);
+				user = await this.wrapper.app.auth().signInWithCredential(credential);
 			} else {
 				user = undefined;
 			}
@@ -111,7 +112,7 @@ class AuthStore implements IAuthStore {
 		this.setLoading();
 		let user: firebase.User | undefined;
 		try {
-			user = await this.fb.auth().createUserWithEmailAndPassword(email, password);
+			user = await this.wrapper.app.auth().createUserWithEmailAndPassword(email, password);
 			if (!user) {
 				throw new Error('Invalid sign up state');
 			}
@@ -124,11 +125,11 @@ class AuthStore implements IAuthStore {
 	}
 
 	public signOut = async (): Promise<void> => {
-		await this.fb.auth().signOut();
+		await this.wrapper.app.auth().signOut();
 	}
 
 	@action('AuthStore.updateUser')
-	private setUser(user: firebase.User | null) {
+	private setUser(user: MR.FirebaseUser) {
 		this.user = user;
 		this.isLoggedIn = user !== null;
 	}

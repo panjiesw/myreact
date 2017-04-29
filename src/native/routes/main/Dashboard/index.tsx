@@ -5,7 +5,8 @@
  * https://panjiesw.mit-license.org
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import * as propTypes from 'prop-types';
 import { RouteComponentProps } from 'react-router-native';
 import { inject, observer } from 'mobx-react/native';
 import { Button, Content, Text } from 'native-base';
@@ -19,7 +20,7 @@ export interface IDashboardProps extends RouteComponentProps<any> {
 class Dashboard extends Component<IDashboardProps, void> {
 	public static displayName = 'DashboardRaw';
 	public static propTypes = {
-		authStore: PropTypes.object.isRequired,
+		authStore:  propTypes.object.isRequired,
 	};
 
 	private authWatcher: () => any;

@@ -5,7 +5,8 @@
  * https://panjiesw.mit-license.org
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import * as propTypes from 'prop-types';
 import { View } from 'react-native';
 import { RouteComponentProps } from 'react-router-native';
 import { inject, observer } from 'mobx-react/native';
@@ -28,8 +29,8 @@ export interface IPSignupProps extends RouteComponentProps<any> {
 class Signup extends Component<ISignupProps, void> {
 	public static displayName = 'SignupRaw';
 	public static propTypes = {
-		authStore: PropTypes.object.isRequired,
-		oauthStore: PropTypes.object.isRequired,
+		authStore:  propTypes.object.isRequired,
+		oauthStore:  propTypes.object.isRequired,
 	};
 
 	public render(): JSX.Element | null {
