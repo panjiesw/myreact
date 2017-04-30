@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 
-class Home extends Component<void, void> {
+class Dashboard extends Component<void, void> {
 	public render(): JSX.Element | null {
 		return (
 			<h1>Hello</h1>
@@ -16,5 +16,5 @@ class Home extends Component<void, void> {
 	}
 }
 
-export { Home as HomeRaw };
-export default observer(Home);
+export { Dashboard as DashboardRaw };
+export default observer(Dashboard);

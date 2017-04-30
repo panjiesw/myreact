@@ -5,10 +5,12 @@
  * https://panjiesw.mit-license.org
  */
 
+import './style/common.less';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import App from './components/App';
+import * as loaders from 'web/utils/loaders';
+import MyReact from './components/MyReact';
 
 const doRender = (Component: React.ComponentClass<any>) => {
 	ReactDOM.render(
@@ -16,11 +18,13 @@ const doRender = (Component: React.ComponentClass<any>) => {
 			<AppContainer>
 				<Component />
 			</AppContainer>
-		), document.getElementById('app'));
+		), document.getElementById('my-react'));
 };
 
-doRender(App);
+loaders.polyfill().then(() => doRender(MyReact));
+
+// doRender(MyReact);
 
 if (module.hot) {
-	module.hot.accept('./components/App', () => doRender(App));
+	module.hot.accept('./components/MyReact', () => doRender(MyReact));
 }

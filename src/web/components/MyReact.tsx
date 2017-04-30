@@ -9,18 +9,23 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import { useStrict } from 'mobx';
-import Home from 'web/routes/main/Home';
-// import ProtectedRoute from './WebProtectedRoute';
+import stores from 'web/stores';
+import Home from 'web/routes/Home';
+import Auth from 'web/routes/Auth';
+import Dashboard from 'web/routes/App/Dashboard';
+import ProtectedRoute from './WebProtectedRoute';
 
 useStrict(true);
 
-class App extends Component<any, any> {
+class MyReact extends Component<any, any> {
 	public render(): JSX.Element | null {
 		return (
-			<Provider>
+			<Provider {...stores}>
 				<BrowserRouter>
 					<Switch>
-						<Route strict path="/" component={Home} />
+						<Route strict exact path="/" component={Home} />
+						<Route strict exact path="/auth/signin" component={Auth} />
+						<ProtectedRoute strict path="/app" component={Dashboard} />
 					</Switch>
 				</BrowserRouter>
 			</Provider>
@@ -28,4 +33,4 @@ class App extends Component<any, any> {
 	}
 }
 
-export default App;
+export default MyReact;

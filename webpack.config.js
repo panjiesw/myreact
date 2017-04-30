@@ -19,22 +19,25 @@ const htmlTemplate = (filename = 'index.html') => ({
 	title: 'My React Space',
 	inject: false,
 	template: sharedConfig.resolve(['tools', 'webpack', 'template.ejs']),
-	appMountClasses: 'my-app',
-	appMountId: 'app',
+	appMountClasses: 'my-react',
+	appMountId: 'my-react',
 	meta: [
 		{
 			name: 'description',
 			content: pkg.description,
 		},
 	],
-	links: [],
+	links: [
+		'/assets/css/loader.css',
+	],
 });
 
-const style = () => sharedConfig.style({ test: /\.scss$/ })
+const styleGlobal = () => sharedConfig
+	.style({
+		test: /\.less$/,
+	})
 	.use(sharedConfig.style.css({
-		modules: true,
-		camelCase: true,
-		localIdentName: '[local]___[hash:base64:5]',
+		modules: false,
 		importLoaders: 2,
 	}))
 	.use(sharedConfig.style.post())
@@ -44,7 +47,7 @@ const style = () => sharedConfig.style({ test: /\.scss$/ })
 		},
 	}));
 
-const extractedStyle = () => style()
+const extractedStyle = () => styleGlobal()
 	.extract({ filename: 'assets/css/[name].[hash].css' });
 
 const common = () => merge([
@@ -99,6 +102,7 @@ const nonProd = () => ({
 			'react-hot-loader/patch',
 			'webpack-dev-server/client?http://localhost:7777',
 			'webpack/hot/only-dev-server',
+			'antd/dist/antd.less',
 			'./src/web/index',
 		],
 	},
@@ -109,7 +113,7 @@ const nonProd = () => ({
 
 const development = () => merge([
 	common(),
-	style(),
+	styleGlobal(),
 	nonTest(),
 	nonProd(),
 	sharedConfig.typescript.sourcemap(),
@@ -138,7 +142,7 @@ const development = () => merge([
 		host: 'localhost',
 		port: 7777,
 		hot: true,
-		contentBase: sharedConfig.resolve(['src', 'web', 'assets']),
+		contentBase: sharedConfig.resolve(['src', 'web']),
 		publicPath: '/',
 	}),
 ]);
@@ -156,7 +160,7 @@ const test = () => merge([
 			configFileName: 'tsconfig.web.json',
 		},
 	}),
-	style(),
+	styleGlobal(),
 	nonProd(),
 ]);
 
