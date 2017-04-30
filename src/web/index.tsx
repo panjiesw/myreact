@@ -5,11 +5,11 @@
  * https://panjiesw.mit-license.org
  */
 
+import 'antd/lib/style/index.less';
 import './style/common.less';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import * as loaders from 'web/utils/loaders';
 import MyReact from './components/MyReact';
 
 const doRender = (Component: React.ComponentClass<any>) => {
@@ -21,9 +21,9 @@ const doRender = (Component: React.ComponentClass<any>) => {
 		), document.getElementById('my-react'));
 };
 
-loaders.polyfill().then(() => doRender(MyReact));
+// loaders.polyfill().then(() => doRender(MyReact));
 
-// doRender(MyReact);
+doRender(MyReact);
 
 if (module.hot) {
 	module.hot.accept('./components/MyReact', () => doRender(MyReact));

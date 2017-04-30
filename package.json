@@ -24,11 +24,14 @@
 	"homepage": "https://github.com/panjiesw/myreact#readme",
 	"license": "MIT",
 	"scripts": {
-		"ts": "tsc",
-		"clean": "del build dist",
+		"build": "webpack --env.production --progress --profile",
+		"clean": "del build dist .awcache",
 		"start": "node ./node_modules/react-native/local-cli/cli.js start",
+		"ts": "tsc",
 		"test:web": "cross-env NODE_ENV=test karma start",
-		"web": "cross-env UV_THREADPOOL_SIZE=100 webpack-dev-server"
+		"web": "cross-env UV_THREADPOOL_SIZE=100 webpack-dev-server",
+		"prebuild": "npm run clean",
+		"postinstall": "./tools/killglobal.sh"
 	},
 	"devDependencies": {
 		"@types/node": "^6.0.71",
@@ -43,7 +46,9 @@
 		"@types/tinycolor2": "^1.1.0",
 		"awesome-typescript-loader": "^3.1.3",
 		"babel-jest": "19.0.0",
+		"babel-plugin-import": "^1.1.1",
 		"babel-plugin-module-resolver": "^2.7.0",
+		"babel-preset-env": "^1.4.0",
 		"babel-preset-react-native": "1.9.1",
 		"cross-env": "^4.0.0",
 		"css-loader": "^0.28.0",
@@ -78,7 +83,6 @@
 	},
 	"dependencies": {
 		"antd": "^2.9.3",
-		"core-js": "^2.4.1",
 		"firebase": "^3.9.0",
 		"firebaseui": "^1.0.1",
 		"localforage": "^1.5.0",

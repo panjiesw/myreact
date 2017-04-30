@@ -44,7 +44,7 @@
 		"index.ios.js",
 		"build",
 		"dist",
-		"node_modules",
-		"__tests__"
+		"tests",
+		"node_modules"
 	]
 }

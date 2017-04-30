@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-import { Row, Col } from 'antd/lib/grid';
+import { Row, Col } from 'antd';
 import { IAuthStore } from 'common/stores/auth';
 
 export interface IAuthProps extends RouteComponentProps<any> {
