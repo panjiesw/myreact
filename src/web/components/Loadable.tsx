@@ -5,7 +5,7 @@
  * https://panjiesw.mit-license.org
  */
 
-import OriginalLoadable, {LoadedComponent, LoadableComponent} from 'react-loadable';
+import OriginalLoadable, { LoadedComponent, LoadableComponent } from 'react-loadable';
 import { observer } from 'mobx-react';
 import LoadingComponent from './LoadingComponent';
 

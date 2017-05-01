@@ -29,7 +29,8 @@ class Auth extends Component<RouteComponentProps<any>, void> {
 					flex: 1,
 					flexDirection: 'column',
 					justifyContent: 'center', height: deviceHeight - StatusBarManager.HEIGHT, marginTop: StatusBarManager.HEIGHT,
-				}}>
+				}}
+			>
 				<AdaptiveStatusBar colorBehindStatusBar="#0D82E7" />
 				<Content
 					contentContainerStyle={{
@@ -37,7 +38,8 @@ class Auth extends Component<RouteComponentProps<any>, void> {
 						flexDirection: 'column',
 						justifyContent: 'center',
 						backgroundColor: 'rgb(98, 176, 246)',
-					}}>
+					}}
+				>
 					<View style={styles.spacer} />
 					<Route exact strict path={`${match.url}/signin`} component={Signin} />
 					<Route exact strict path={`${match.url}/signup`} component={Signup} />

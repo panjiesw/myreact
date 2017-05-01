@@ -5,6 +5,7 @@
  * https://panjiesw.mit-license.org
  */
 
+import 'babel-polyfill';
 import 'antd/lib/style/index.less';
 import './style/common.less';
 import * as React from 'react';

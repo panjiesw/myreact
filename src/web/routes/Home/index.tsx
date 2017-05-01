@@ -6,10 +6,19 @@
  */
 
 import React, { Component } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
+import { Button } from 'antd';
 
-class Home extends Component<void, void> {
+class Home extends Component<RouteComponentProps<any>, void> {
 	public render(): JSX.Element | null {
-		return <h1>Home</h1>;
+		return (
+			<Button type="primary" onClick={this.onClick}>App</Button>
+		);
+	}
+
+	private onClick = () => {
+		const { history } = this.props;
+		history.push('/app');
 	}
 }
 

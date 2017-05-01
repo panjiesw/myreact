@@ -66,6 +66,7 @@ const typescriptOptions = (configFileName) => ({
 				targets: {
 					browsers: ['last 2 versions'],
 				},
+				useBuiltIns: true,
 			}],
 		],
 		plugins: [
@@ -123,7 +124,7 @@ const common = () => merge([
 	},
 ]);
 
-const nonTest = ({ scripts = [] }) => ({
+const nonTest = ({ scripts = [] } = {}) => ({
 	output: {
 		path: sharedConfig.resolve(['dist']),
 		publicPath: '/',
@@ -252,8 +253,7 @@ module.exports = (env = {}) => {
 	} else if (env.test) {
 		process.env.NODE_ENV = 'test';
 		return test();
-	} /*else {
-		return development();
-	}*/
+	}
+	process.env.NODE_ENV = 'development';
 	return development();
 };

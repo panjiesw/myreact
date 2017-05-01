@@ -14,13 +14,14 @@ import Home from 'web/routes/Home';
 import Auth from 'web/routes/Auth';
 import Dashboard from 'web/routes/App/Dashboard';
 import ProtectedRoute from './WebProtectedRoute';
+import firebaseWrapper from 'web/utils/firebase';
 
 useStrict(true);
 
 class MyReact extends Component<any, any> {
 	public render(): JSX.Element | null {
 		return (
-			<Provider {...stores}>
+			<Provider {...stores} firebaseWrapper={firebaseWrapper}>
 				<BrowserRouter>
 					<Switch>
 						<Route strict exact path="/" component={Home} />
