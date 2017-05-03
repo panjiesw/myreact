@@ -1,0 +1,10 @@
+{
+	"extends": "./web.json",
+	"compilerOptions": {
+		"jsx": "react-native",
+		"outDir": "../../.tests",
+		"sourceMap": false,
+		"inlineSourceMap": true,
+		"inlineSources": true
+	}
+}
