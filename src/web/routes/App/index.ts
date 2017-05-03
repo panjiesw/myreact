@@ -7,10 +7,10 @@
 
 import { LoadedComponent, LoadableComponent } from 'react-loadable';
 import Loadable from 'web/components/Loadable';
-import AuthModule, { IAuthProps } from './Auth';
+import AppModule, { IAppProps } from './components/App';
 
-const Auth: LoadedComponent<IAuthProps> & LoadableComponent = Loadable<IAuthProps, typeof AuthModule>({
-	loader: () => System.import<typeof AuthModule>(/* webpackChunkName: "module.auth" */ './Auth'),
+const App: LoadedComponent<IAppProps> & LoadableComponent = Loadable<IAppProps, typeof AppModule>({
+	loader: () => System.import<typeof AppModule>(/* webpackChunkName: "module.app" */ './components/App'),
 });
 
-export default Auth;
+export default App;

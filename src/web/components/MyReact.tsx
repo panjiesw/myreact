@@ -12,7 +12,7 @@ import { useStrict } from 'mobx';
 import stores from 'web/stores';
 import Home from 'web/routes/Home';
 import Auth from 'web/routes/Auth';
-import Dashboard from 'web/routes/App/Dashboard';
+import App from 'web/routes/App';
 import ProtectedRoute from './WebProtectedRoute';
 import firebaseWrapper from 'web/utils/firebase';
 
@@ -26,7 +26,7 @@ class MyReact extends Component<any, any> {
 					<Switch>
 						<Route strict exact path="/" component={Home} />
 						<Route strict exact path="/auth/signin" component={Auth} />
-						<ProtectedRoute strict path="/app" component={Dashboard} />
+						<ProtectedRoute strict path="/app" component={App} />
 					</Switch>
 				</BrowserRouter>
 			</Provider>

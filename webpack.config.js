@@ -62,11 +62,13 @@ const typescriptOptions = (configFileName) => ({
 	configFileName,
 	babelOptions: {
 		presets: [
+			'react',
 			['env', {
 				targets: {
 					browsers: ['last 2 versions'],
 				},
 				useBuiltIns: true,
+				modules: false,
 			}],
 		],
 		plugins: [
@@ -138,7 +140,7 @@ const nonProd = () => ({
 	devtool: 'inline-source-map',
 	performance: false,
 	entry: {
-		app: [
+		myreact: [
 			'react-hot-loader/patch',
 			'webpack-dev-server/client?http://localhost:7777',
 			'webpack/hot/only-dev-server',
@@ -211,7 +213,7 @@ const production = () => merge([
 				'react-router-dom',
 				'react-loadable',
 			],
-			app: './src/web/index',
+			myreact: './src/web/index',
 		},
 		output: {
 			filename: 'assets/js/[name].[chunkhash].js',
