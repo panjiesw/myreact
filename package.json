@@ -93,11 +93,11 @@
 	},
 	"scripts": {
 		"?build:native": "[Native] Build TS into intermediary es6 modules to be consumed by native app",
-		"build:native": "yarn del:native && tsc",
+		"build:native": "yarn del:native && tsc -p tools/tsconfig/native.json",
 		"?build:tests": "[Web] Precompile tests bundle for web ava tests",
-		"build:tests": "yarn del:tests && yarn del:cache && webpack --env.test",
+		"build:tests": "yarn del && webpack --env.test",
 		"?build:web": "[Web] Build web distribution",
-		"build:web": "yarn del:web && webpack --env.production --progress --profile",
+		"build:web": "yarn del && webpack --env.production --profile",
 		"?del": "Remove build and cache directories",
 		"del": "del .awcache .dist .build .tests",
 		"del:cache": "del .awcache",
@@ -119,6 +119,26 @@
 		"prebuild": "yarn del",
 		"postinstall": "./tools/killglobal.sh",
 		"postuninstall": "./tools/killglobal.sh"
+	},
+	"babel": {
+		"presets": [
+			"react-native"
+		],
+		"plugins": [
+			[
+				"module-resolver",
+				{
+					"root": [
+						"./.build"
+					]
+				}
+			]
+		],
+		"env": {
+			"development": {
+				"sourceMaps": true
+			}
+		}
 	},
 	"ava": {
 		"files": [

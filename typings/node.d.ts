@@ -5,6 +5,8 @@
  * https://panjiesw.mit-license.org
  */
 
+declare var __DEV__: boolean;
+
 declare interface NodeModule {
 	hot?: {
 		accept(ac?: string | string[], cb?: Function): void;

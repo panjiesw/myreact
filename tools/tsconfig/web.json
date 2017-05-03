@@ -1,0 +1,24 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"jsx": "preserve",
+		"sourceMap": true,
+		"rootDir": "../../"
+	},
+	"include": [
+		"../../**/*"
+	],
+	"exclude": [
+		"../../index.android.js",
+		"../../index.ios.js",
+		"../../.build",
+		"../../.dist",
+		"../../.tests",
+		"../../src/native",
+		"../../node_modules"
+	],
+	"awesomeTypescriptLoaderOptions": {
+		"useCache": true,
+		"useBabel": true
+	}
+}

@@ -1,0 +1,19 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "../../.build",
+		"declaration": true
+	},
+	"include": [
+		"../../**/*"
+	],
+	"exclude": [
+		"../../index.android.js",
+		"../../index.ios.js",
+		"../../.build",
+		"../../.dist",
+		"../../.tests",
+		"../../tests",
+		"../../node_modules"
+	]
+}

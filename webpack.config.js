@@ -88,7 +88,7 @@ const typescriptNonDev = () => sharedConfig.typescript({
 		sharedConfig.resolve(['.dist']),
 		sharedConfig.resolve(['.build']),
 	],
-	options: typescriptOptions('tsconfig.web.json'),
+	options: typescriptOptions('tools/tsconfig/web.json'),
 });
 
 const common = () => merge([
@@ -172,7 +172,7 @@ const development = () => merge([
 					'react-hot-loader/webpack',
 					{
 						loader: 'awesome-typescript-loader',
-						options: typescriptOptions('tsconfig.web.json'),
+						options: typescriptOptions('tools/tsconfig/web.json'),
 					},
 				],
 			}],

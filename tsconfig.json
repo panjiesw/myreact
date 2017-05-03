@@ -12,7 +12,6 @@
 		"experimentalDecorators": true,
 		"removeComments": true,
 		"rootDir": "src",
-		"outDir": ".build",
 		"baseUrl": ".",
 		"paths": {
 			"common/*": [
@@ -27,10 +26,6 @@
 		}
 	},
 	"exclude": [
-		"index.android.js",
-		"index.ios.js",
-		".build",
-		".dist",
 		"node_modules"
 	]
 }
