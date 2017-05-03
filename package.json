@@ -23,16 +23,6 @@
 	},
 	"homepage": "https://github.com/panjiesw/myreact#readme",
 	"license": "MIT",
-	"scripts": {
-		"build": "webpack --env.production --progress --profile",
-		"clean": "del build dist .awcache",
-		"start": "node ./node_modules/react-native/local-cli/cli.js start",
-		"ts": "tsc",
-		"test:web": "cross-env NODE_ENV=test karma start",
-		"web": "cross-env UV_THREADPOOL_SIZE=100 webpack-dev-server",
-		"prebuild": "npm run clean",
-		"postinstall": "./tools/killglobal.sh"
-	},
 	"devDependencies": {
 		"@types/node": "^6.0.71",
 		"@types/prop-types": "^15.5.1",
@@ -42,37 +32,31 @@
 		"@types/react-loadable": "^3.3.0",
 		"@types/react-native": "~0.42.0",
 		"@types/react-router-dom": "^4.0.3",
-		"@types/tape": "^4.2.29",
 		"@types/tinycolor2": "^1.1.0",
+		"ava": "^0.19.1",
 		"awesome-typescript-loader": "^3.1.3",
-		"babel-jest": "19.0.0",
 		"babel-plugin-import": "^1.1.1",
 		"babel-plugin-module-resolver": "^2.7.0",
 		"babel-preset-env": "^1.4.0",
 		"babel-preset-react": "^6.24.1",
 		"babel-preset-react-native": "1.9.1",
+		"browser-env": "^2.0.31",
+		"concurrently": "^3.4.0",
 		"cross-env": "^4.0.0",
 		"css-loader": "^0.28.0",
 		"del-cli": "^0.2.1",
 		"extract-text-webpack-plugin": "^2.1.0",
 		"file-loader": "^0.11.1",
 		"html-webpack-plugin": "^2.28.0",
-		"jest": "19.0.2",
-		"karma": "^1.6.0",
-		"karma-chrome-launcher": "^2.0.0",
-		"karma-cli": "^1.0.1",
-		"karma-sourcemap-loader": "^0.3.7",
-		"karma-tap": "^3.1.1",
-		"karma-tap-pretty-reporter": "^3.0.5",
-		"karma-webpack": "^2.0.3",
 		"less": "^2.7.2",
 		"less-loader": "^4.0.3",
+		"npm-scripts-info": "^0.3.6",
 		"postcss-loader": "^1.3.3",
 		"react-test-renderer": "15.4.2",
+		"sleep-ms": "^2.0.1",
 		"source-map-loader": "^0.2.1",
 		"style-loader": "^0.16.1",
 		"tap-spec": "^4.1.1",
-		"tape": "^4.6.3",
 		"tslint": "^5.1.0",
 		"tslint-react": "^3.0.0",
 		"typescript": "^2.3.0",
@@ -80,7 +64,8 @@
 		"webpack-configs": "^0.2.1",
 		"webpack-dev-server": "^2.4.5",
 		"webpack-dotenv-plugin": "^2.0.0",
-		"webpack-merge": "^4.1.0"
+		"webpack-merge": "^4.1.0",
+		"webpack-node-externals": "^1.5.4"
 	},
 	"dependencies": {
 		"antd": "^2.9.3",
@@ -106,7 +91,41 @@
 		"tslib": "^1.6.0",
 		"whatwg-fetch": "^2.0.3"
 	},
-	"jest": {
-		"preset": "react-native"
+	"scripts": {
+		"?build:native": "[Native] Build TS into intermediary es6 modules to be consumed by native app",
+		"build:native": "yarn del:native && tsc",
+		"?build:tests": "[Web] Precompile tests bundle for web ava tests",
+		"build:tests": "yarn del:tests && yarn del:cache && webpack --env.test",
+		"?build:web": "[Web] Build web distribution",
+		"build:web": "yarn del:web && webpack --env.production --progress --profile",
+		"?del": "Remove build and cache directories",
+		"del": "del .awcache .dist .build .tests",
+		"del:cache": "del .awcache",
+		"del:web": "del .dist",
+		"del:native": "del .build",
+		"del:tests": "del .tests",
+		"?info": "Display information about available scripts",
+		"info": "npm-scripts-info",
+		"?native": "[Native] Run react-native development server",
+		"native": "node ./node_modules/react-native/local-cli/cli.js start",
+		"?test:web": "[Web] Run unit tests and coverage",
+		"test:web": "yarn build:tests && yarn unit:web",
+		"?unit:web": "[Web] Run unit tests only",
+		"unit:web": "ava --verbose",
+		"?watch": "[Web] Build, run tests and watch for change",
+		"watch": "concurrently -r -k 'yarn build:tests -- -w' 'sleepms 5000 && ava --watch'",
+		"?web": "[Web] Run development server",
+		"web": "cross-env UV_THREADPOOL_SIZE=100 webpack-dev-server",
+		"prebuild": "yarn del",
+		"postinstall": "./tools/killglobal.sh",
+		"postuninstall": "./tools/killglobal.sh"
+	},
+	"ava": {
+		"files": [
+			".tests/tests.js"
+		],
+		"require": [
+			"./tests/helpers/setup-browser-env.js"
+		]
 	}
 }

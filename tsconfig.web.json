@@ -9,8 +9,8 @@
 	"exclude": [
 		"index.android.js",
 		"index.ios.js",
-		"build",
-		"dist",
+		".build",
+		".dist",
 		"src/native",
 		"node_modules"
 	],

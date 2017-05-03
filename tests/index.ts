@@ -5,7 +5,5 @@
  * https://panjiesw.mit-license.org
  */
 
-import { AppRegistry } from 'react-native';
-import App from './.build/native/App';
-
-AppRegistry.registerComponent('MyReact', () => App);
+import 'babel-polyfill';
+import './web/stores/auth.spec';

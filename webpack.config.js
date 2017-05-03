@@ -8,6 +8,7 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const sharedConfig = require('webpack-configs');
+const nodeExternals = require('webpack-node-externals');
 const pkg = require('./package.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DotenvPlugin = require('webpack-dotenv-plugin');
@@ -84,8 +85,8 @@ const typescriptNonDev = () => sharedConfig.typescript({
 	exclude: [
 		/node_modules/,
 		/\.less\.d\.ts$/,
-		sharedConfig.resolve(['dist']),
-		sharedConfig.resolve(['build']),
+		sharedConfig.resolve(['.dist']),
+		sharedConfig.resolve(['.build']),
 	],
 	options: typescriptOptions('tsconfig.web.json'),
 });
@@ -128,7 +129,7 @@ const common = () => merge([
 
 const nonTest = ({ scripts = [] } = {}) => ({
 	output: {
-		path: sharedConfig.resolve(['dist']),
+		path: sharedConfig.resolve(['.dist']),
 		publicPath: '/',
 	},
 	plugins: [
@@ -139,17 +140,6 @@ const nonTest = ({ scripts = [] } = {}) => ({
 const nonProd = () => ({
 	devtool: 'inline-source-map',
 	performance: false,
-	entry: {
-		myreact: [
-			'react-hot-loader/patch',
-			'webpack-dev-server/client?http://localhost:7777',
-			'webpack/hot/only-dev-server',
-			'./src/web/index',
-		],
-	},
-	plugins: [
-		new webpack.NamedModulesPlugin(),
-	],
 });
 
 const development = () => merge([
@@ -158,6 +148,17 @@ const development = () => merge([
 	nonTest(),
 	nonProd(),
 	{
+		entry: {
+			myreact: [
+				'react-hot-loader/patch',
+				'webpack-dev-server/client?http://localhost:7777',
+				'webpack/hot/only-dev-server',
+				'./src/web/index',
+			],
+		},
+		plugins: [
+			new webpack.NamedModulesPlugin(),
+		],
 		module: {
 			rules: [{
 				test: /\.ts(x?)$/,
@@ -191,6 +192,19 @@ const test = () => merge([
 	styleGlobal(),
 	nonProd(),
 	typescriptNonDev(),
+	{
+		target: 'node',
+		entry: {
+			main: [
+				'./tests/index',
+			],
+		},
+		output: {
+			path: sharedConfig.resolve(['.tests']),
+			filename: 'tests.js',
+		},
+		externals: [nodeExternals()],
+	},
 ]);
 
 const production = () => merge([

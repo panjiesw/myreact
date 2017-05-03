@@ -4,7 +4,6 @@
 		"moduleResolution": "node",
 		"jsx": "react-native",
 		"strict": true,
-		"declaration": true,
 		"importHelpers": true,
 		"allowSyntheticDefaultImports": true,
 		"noImplicitReturns": true,
@@ -13,7 +12,7 @@
 		"experimentalDecorators": true,
 		"removeComments": true,
 		"rootDir": "src",
-		"outDir": "build",
+		"outDir": ".build",
 		"baseUrl": ".",
 		"paths": {
 			"common/*": [
@@ -30,9 +29,8 @@
 	"exclude": [
 		"index.android.js",
 		"index.ios.js",
-		"build",
-		"dist",
-		"tests",
+		".build",
+		".dist",
 		"node_modules"
 	]
 }
