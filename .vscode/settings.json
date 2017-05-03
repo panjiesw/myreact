@@ -10,7 +10,6 @@
   ],
   "editor.trimAutoWhitespace": true,
   "files.insertFinalNewline": true,
-  "licenser.author": "Panjie Setiawan Wicaksono",
   "licenser.projectName": "myreact",
   "licenser.license": "MIT",
   "licenser.useSingleLineStyle": false,
@@ -19,8 +18,9 @@
   "tslint.ignoreDefinitionFiles": true,
   "tslint.jsEnable": true,
   "tslint.exclude": [
-    "**/dist/**",
-    "**/build/**",
+    "**/.dist/**",
+    "**/.build/**",
+    "**/.tests/**",
     "**/node_modules/**"
   ]
 }

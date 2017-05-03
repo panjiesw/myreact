@@ -8,7 +8,6 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const sharedConfig = require('webpack-configs');
-const nodeExternals = require('webpack-node-externals');
 const pkg = require('./package.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DotenvPlugin = require('webpack-dotenv-plugin');
@@ -81,17 +80,7 @@ const typescriptOptions = (configFileName) => ({
 	},
 });
 
-const typescriptNonDev = () => sharedConfig.typescript({
-	exclude: [
-		/node_modules/,
-		/\.less\.d\.ts$/,
-		sharedConfig.resolve(['.dist']),
-		sharedConfig.resolve(['.build']),
-	],
-	options: typescriptOptions('tools/tsconfig/web.json'),
-});
-
-const common = () => merge([
+const common = ({ scripts = [] } = {}) => merge([
 	sharedConfig.typescript.sourcemap(),
 	{
 		bail: true,
@@ -103,6 +92,10 @@ const common = () => merge([
 				sharedConfig.resolve(['src']),
 				'node_modules',
 			],
+		},
+		output: {
+			path: sharedConfig.resolve(['.dist']),
+			publicPath: '/',
 		},
 		plugins: [
 			new webpack.LoaderOptionsPlugin({
@@ -120,6 +113,7 @@ const common = () => merge([
 				path: sharedConfig.resolve(['.env']),
 			}),
 			new webpack.EnvironmentPlugin(['NODE_ENV']),
+			new HtmlWebpackPlugin(htmlTemplate(scripts)),
 		],
 		node: {
 			fs: 'empty',
@@ -127,27 +121,12 @@ const common = () => merge([
 	},
 ]);
 
-const nonTest = ({ scripts = [] } = {}) => ({
-	output: {
-		path: sharedConfig.resolve(['.dist']),
-		publicPath: '/',
-	},
-	plugins: [
-		new HtmlWebpackPlugin(htmlTemplate(scripts)),
-	],
-});
-
-const nonProd = () => ({
-	devtool: 'inline-source-map',
-	performance: false,
-});
-
 const development = () => merge([
 	common(),
 	styleGlobal(),
-	nonTest(),
-	nonProd(),
 	{
+		devtool: 'inline-source-map',
+		performance: false,
 		entry: {
 			myreact: [
 				'react-hot-loader/patch',
@@ -187,30 +166,8 @@ const development = () => merge([
 	}),
 ]);
 
-const test = () => merge([
-	common(),
-	styleGlobal(),
-	nonProd(),
-	typescriptNonDev(),
-	{
-		target: 'node',
-		entry: {
-			main: [
-				'./tests/index',
-			],
-		},
-		output: {
-			path: sharedConfig.resolve(['.tests']),
-			filename: 'tests.js',
-		},
-		externals: [nodeExternals()],
-	},
-]);
-
 const production = () => merge([
-	common(),
-	extractedStyleGlobal(),
-	nonTest({
+	common({
 		scripts: [
 			`//cdnjs.cloudflare.com/ajax/libs/react/${versions.react}/react.min.js`,
 			`//cdnjs.cloudflare.com/ajax/libs/react/${versions.react}/react-dom.min.js`,
@@ -218,7 +175,17 @@ const production = () => merge([
 			`//cdn.firebase.com/libs/firebaseui/${versions.firebaseui}/firebaseui.js`,
 		],
 	}),
-	typescriptNonDev(),
+	extractedStyleGlobal(),
+	sharedConfig.typescript({
+		exclude: [
+			/node_modules/,
+			/\.less\.d\.ts$/,
+			sharedConfig.resolve(['.dist']),
+			sharedConfig.resolve(['.build']),
+			sharedConfig.resolve(['.tests']),
+		],
+		options: typescriptOptions('tools/tsconfig/web.json'),
+	}),
 	{
 		devtool: 'source-map',
 		entry: {
@@ -266,9 +233,6 @@ module.exports = (env = {}) => {
 	if (env.production) {
 		process.env.NODE_ENV = 'production';
 		return production();
-	} else if (env.test) {
-		process.env.NODE_ENV = 'test';
-		return test();
 	}
 	process.env.NODE_ENV = 'development';
 	return development();
