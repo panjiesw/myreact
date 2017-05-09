@@ -5,12 +5,11 @@
  * https://panjiesw.mit-license.org
  */
 
-import * as test from 'tape';
+import test from 'ava';
 import AuthStore from 'common/stores/auth';
 import firebaseWrapper from 'web/utils/firebase';
 
 test('Auth', (t) => {
 	const store = new AuthStore(firebaseWrapper);
 	t.not(store, undefined);
-	t.end();
 });

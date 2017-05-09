@@ -54,7 +54,12 @@ fastlane/screenshots
 
 Pods/
 
+.nyc_output/
+coverage
+
 google-services.json
 .env
-dist/
-.awcache
+.build/
+.dist/
+.tests/
+.awcache/
