@@ -16,9 +16,16 @@ declare namespace MR {
 		[key: string]: V;
 	}
 
+	interface ITodoJS {
+		title: string;
+		todo: {
+			[index:string]: ITodoItem;
+		};
+	}
+
 	interface ITodo {
 		title: string;
-		items: ObservableMap<ITodoItem>;
+		todo: ObservableMap<ITodoItem>;
 	}
 
 	interface ITodoItem {

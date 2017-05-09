@@ -48,6 +48,7 @@
 		"extract-text-webpack-plugin": "^2.1.0",
 		"faucet": "^0.0.1",
 		"file-loader": "^0.11.1",
+		"firebase-server": "^0.9.1",
 		"html-webpack-plugin": "^2.28.0",
 		"less": "^2.7.2",
 		"less-loader": "^4.0.3",
@@ -58,6 +59,7 @@
 		"sleep-ms": "^2.0.1",
 		"source-map-loader": "^0.2.1",
 		"style-loader": "^0.16.1",
+		"ts-node": "^3.0.4",
 		"tslint": "^5.1.0",
 		"tslint-react": "^3.0.0",
 		"typescript": "^2.3.0",
@@ -104,6 +106,8 @@
 		"del:web": "del .dist",
 		"del:native": "del .build",
 		"del:tests": "del .tests",
+		"?firebase": "Run firebase-server to mock interaction with firebase",
+		"firebase": "node tools/generate-mock.js && firebase-server -v -f ./tools/fbdbmock.json",
 		"?info": "Display information about available scripts",
 		"info": "npm-scripts-info",
 		"?native": "[Native] Run react-native development server",
@@ -112,9 +116,9 @@
 		"?test:web": "[Web] Run unit tests and coverage",
 		"test:web": "yarn build:tests && yarn unit:web",
 		"?unit:web": "[Web] Run unit tests only",
-		"unit:web": "nyc ava --tap | faucet",
+		"unit:web": "cross-env BABEL_ENV=web:tests nyc ava --tap | faucet",
 		"?watch": "[Web] Build, run tests and watch for change",
-		"watch": "concurrently -r -k 'yarn build:tests -- -w' 'sleepms 5000 && ava --watch'",
+		"watch": "concurrently -r -k 'yarn build:tests -- -w' 'sleepms 5000 && cross-env BABEL_ENV=web:tests ava --watch'",
 		"?web": "[Web] Run development server",
 		"web": "cross-env UV_THREADPOOL_SIZE=100 webpack-dev-server",
 		"prebuild": "yarn del",
@@ -122,22 +126,55 @@
 		"postuninstall": "./tools/killglobal.sh"
 	},
 	"babel": {
-		"presets": [
-			"react-native"
-		],
-		"plugins": [
-			[
-				"module-resolver",
-				{
-					"root": [
-						"./.build"
-					]
-				}
-			]
-		],
 		"env": {
 			"development": {
-				"sourceMaps": true
+				"sourceMaps": true,
+				"presets": [
+					"react-native"
+				],
+				"plugins": [
+					[
+						"module-resolver",
+						{
+							"root": [
+								"./.build"
+							]
+						}
+					]
+				]
+			},
+			"web:tests": {
+				"presets": [
+					"react",
+					[
+						"env",
+						{
+							"targets": {
+								"browsers": [
+									"last 2 versions"
+								]
+							},
+							"useBuiltIns": true
+						}
+					]
+				],
+				"plugins": [
+					[
+						"import",
+						{
+							"libraryName": "antd",
+							"style": true
+						}
+					],
+					[
+						"module-resolver",
+						{
+							"root": [
+								"./.tests/src"
+							]
+						}
+					]
+				]
 			}
 		}
 	},
@@ -150,8 +187,6 @@
 			"babel-register",
 			"./tests/helpers/setup-browser-env.js"
 		],
-		"babel": {
-			"extends": "./tools/babel/tests.json"
-		}
+		"babel": "inherit"
 	}
 }

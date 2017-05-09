@@ -5,14 +5,16 @@
  * https://panjiesw.mit-license.org
  */
 
-import { action, observable, ObservableMap } from 'mobx';
+import { action, observable, toJS, ObservableMap } from 'mobx';
 import { IAuthStore } from './auth';
 
 export interface ITodoStore {
 	loading: boolean;
-	isInitialized: boolean;
+	initialized: boolean;
 	userTodos: ObservableMap<MR.ITodo>;
 	publicTodos: ObservableMap<MR.ITodo>;
+	publicTodosJS(): MR.IDict<MR.ITodoJS>;
+	userTodosJS(): MR.IDict<MR.ITodoJS>;
 	initialize(): Promise<void>;
 	addPublicTodo(key: string, todo: MR.ITodo): boolean;
 	addPublicTodoItem(todoKey: string, itemKey: string, item: MR.ITodoItem): boolean;
@@ -24,7 +26,7 @@ class TodoStore implements ITodoStore {
 	public userTodos: ObservableMap<MR.ITodo> = observable.map<MR.ITodo>();
 	public publicTodos: ObservableMap<MR.ITodo> = observable.map<MR.ITodo>();
 	@observable public loading: boolean = true;
-	@observable public isInitialized: boolean = false;
+	@observable public initialized: boolean = false;
 
 	private userTodosRef: firebase.database.Reference;
 	private publicTodosRef: firebase.database.Reference;
@@ -36,7 +38,7 @@ class TodoStore implements ITodoStore {
 		const user = this.auth.user as firebase.User;
 		this.publicTodosRef = this.app.database().ref('public-todos');
 		this.userTodosRef = this.app.database().ref(`user-todos/${user.uid}`);
-		if (!this.isInitialized) {
+		if (!this.initialized) {
 			await Promise.all([
 				this.initializePublicTodos(),
 				this.initializeUserTodos(),
@@ -54,7 +56,7 @@ class TodoStore implements ITodoStore {
 
 	@action.bound
 	public addPublicTodoItem(todoKey: string, itemKey: string, item: MR.ITodoItem): boolean {
-		(this.publicTodos.get(todoKey) as MR.ITodo).items.set(itemKey, item);
+		(this.publicTodos.get(todoKey) as MR.ITodo).todo.set(itemKey, item);
 		return false;
 	}
 
@@ -68,7 +70,7 @@ class TodoStore implements ITodoStore {
 	public addUserTodoItem(todoKey: string, itemKey: string, item: MR.ITodoItem): boolean {
 		const todo = this.userTodos.get(todoKey);
 		if (todo && this.userTodos.has(todoKey)) {
-			todo.items.set(itemKey, item);
+			todo.todo.set(itemKey, item);
 		}
 		return false;
 	}
@@ -79,6 +81,14 @@ class TodoStore implements ITodoStore {
 
 	public publishUserTodoItem(todoKey: string, title: string) {
 		this.userTodosRef.child(`${todoKey}/todo`).push({ title });
+	}
+
+	public publicTodosJS(): MR.IDict<MR.ITodoJS> {
+		return toJS<any>(this.publicTodos, true);
+	}
+
+	public userTodosJS(): MR.IDict<MR.ITodoJS> {
+		return toJS<any>(this.userTodos, true);
 	}
 
 	private initializePublicTodos(): Promise<void> {
@@ -103,7 +113,7 @@ class TodoStore implements ITodoStore {
 		const key = todo.key as string;
 		this.addPublicTodo(key, {
 			title: todo.val().title,
-			items: observable.map<MR.ITodoItem>(),
+			todo: observable.map<MR.ITodoItem>(),
 		});
 		todo.child('todo').forEach((item) => this.addPublicTodoItem(
 			key,
@@ -120,7 +130,7 @@ class TodoStore implements ITodoStore {
 		const key = todo.key as string;
 		this.addUserTodo(key, {
 			title: todo.val().title,
-			items: observable.map<MR.ITodoItem>(),
+			todo: observable.map<MR.ITodoItem>(),
 		});
 		todo.child('todo').forEach((item) => this.addUserTodoItem(
 			key,
@@ -140,7 +150,7 @@ class TodoStore implements ITodoStore {
 
 	@action
 	private setInitialized(isInitialized: boolean = true) {
-		this.isInitialized = isInitialized;
+		this.initialized = isInitialized;
 	}
 }
 

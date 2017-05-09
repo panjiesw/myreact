@@ -59,6 +59,7 @@ coverage
 
 google-services.json
 .env
+.env.prod
 .build/
 .dist/
 .tests/
