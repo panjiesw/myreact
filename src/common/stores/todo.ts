@@ -20,6 +20,8 @@ export interface ITodoStore {
 	addPublicTodoItem(todoKey: string, itemKey: string, item: MR.ITodoItem): boolean;
 	addUserTodo(key: string, todo: MR.ITodo): boolean;
 	addUserTodoItem(todoKey: string, itemKey: string, item: MR.ITodoItem): boolean;
+	publishUserTodo(title: string): Promise<string | null>;
+	publishUserTodoItem(todoKey: string, title: string): Promise<string | null>;
 }
 
 class TodoStore implements ITodoStore {
@@ -75,12 +77,18 @@ class TodoStore implements ITodoStore {
 		return false;
 	}
 
-	public publishUserTodo(title: string) {
-		this.userTodosRef.push({ title });
+	public async publishUserTodo(title: string): Promise<string | null> {
+		const todo = this.userTodosRef.push();
+		await todo.set({ title });
+		return todo.key;
 	}
 
-	public publishUserTodoItem(todoKey: string, title: string) {
-		this.userTodosRef.child(`${todoKey}/todo`).push({ title });
+	public async publishUserTodoItem(todoKey: string, title: string): Promise<string | null> {
+		const item = this.userTodosRef
+			.child(`${todoKey}/todo`)
+			.push();
+		await item.set({ title, done: false });
+		return item.key;
 	}
 
 	public publicTodosJS(): MR.IDict<MR.ITodoJS> {

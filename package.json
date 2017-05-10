@@ -106,8 +106,6 @@
 		"del:web": "del .dist",
 		"del:native": "del .build",
 		"del:tests": "del .tests",
-		"?firebase": "Run firebase-server to mock interaction with firebase",
-		"firebase": "node tools/generate-mock.js && firebase-server -v -f ./tools/fbdbmock.json",
 		"?info": "Display information about available scripts",
 		"info": "npm-scripts-info",
 		"?native": "[Native] Run react-native development server",
