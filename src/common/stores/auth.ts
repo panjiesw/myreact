@@ -126,6 +126,7 @@ class AuthStore implements IAuthStore {
 
 	public signOut = async (): Promise<void> => {
 		await this.wrapper.app.auth().signOut();
+		this.setUser(null);
 	}
 
 	@action('AuthStore.updateUser')

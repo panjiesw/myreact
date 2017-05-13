@@ -11,6 +11,7 @@ import AuthModule, { IAuthProps } from './Auth';
 
 const Auth: LoadedComponent<IAuthProps> & LoadableComponent = Loadable<IAuthProps, typeof AuthModule>({
 	loader: () => System.import<typeof AuthModule>(/* webpackChunkName: "module.auth" */ './Auth'),
+	webpackRequireWeakId: () => require.resolveWeak('./Auth'),
 });
 
 export default Auth;

@@ -11,6 +11,7 @@ import AppModule, { IAppProps } from './components/App';
 
 const App: LoadedComponent<IAppProps> & LoadableComponent = Loadable<IAppProps, typeof AppModule>({
 	loader: () => System.import<typeof AppModule>(/* webpackChunkName: "module.app" */ './components/App'),
+	webpackRequireWeakId: () => require.resolveWeak('./components/App'),
 });
 
 export default App;

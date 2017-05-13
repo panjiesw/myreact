@@ -27,5 +27,10 @@ const doRender = (Component: React.ComponentClass<any>) => {
 doRender(MyReact);
 
 if (module.hot) {
-	module.hot.accept('./components/MyReact', () => doRender(MyReact));
+	// module.hot.accept(['./components/MyReact'], () => {
+	// 	console.warn('hothothot');
+	// 	doRender(MyReact);
+	// });
+	module.hot.accept();
+	doRender(MyReact);
 }

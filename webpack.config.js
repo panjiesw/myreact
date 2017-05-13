@@ -77,6 +77,17 @@ const typescriptOptions = (configFileName) => ({
 				style: true,
 			}],
 		],
+		env: {
+			development: {
+				plugins: [
+					// ['react-loadable/babel', {
+					// 	server: false,
+					// 	webpack: true,
+					// }],
+					'react-hot-loader/babel',
+				],
+			},
+		},
 	},
 });
 
@@ -124,6 +135,16 @@ const common = ({ scripts = [] } = {}) => merge([
 const development = () => merge([
 	common(),
 	styleGlobal(),
+	sharedConfig.typescript({
+		exclude: [
+			/node_modules/,
+			/\.less\.d\.ts$/,
+			sharedConfig.resolve(['.dist']),
+			sharedConfig.resolve(['.build']),
+			sharedConfig.resolve(['.tests']),
+		],
+		options: typescriptOptions('tools/tsconfig/web.json'),
+	}),
 	{
 		devtool: 'inline-source-map',
 		performance: false,
@@ -138,24 +159,6 @@ const development = () => merge([
 		plugins: [
 			new webpack.NamedModulesPlugin(),
 		],
-		module: {
-			rules: [{
-				test: /\.ts(x?)$/,
-				exclude: [
-					/node_modules/,
-					/\.less\.d\.ts$/,
-					sharedConfig.resolve(['dist']),
-					sharedConfig.resolve(['build']),
-				],
-				use: [
-					'react-hot-loader/webpack',
-					{
-						loader: 'awesome-typescript-loader',
-						options: typescriptOptions('tools/tsconfig/web.json'),
-					},
-				],
-			}],
-		},
 	},
 	sharedConfig.devServer({
 		host: 'localhost',

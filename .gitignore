@@ -57,6 +57,8 @@ Pods/
 .nyc_output/
 coverage
 
+*.sublime-*
+
 google-services.json
 .env
 .env.prod

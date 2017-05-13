@@ -13,4 +13,8 @@ declare interface NodeModule {
 	}
 }
 
+declare interface NodeRequire {
+	resolveWeak(id: string): any;
+}
+
 declare var module: NodeModule;
